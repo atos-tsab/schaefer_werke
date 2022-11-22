@@ -1,16 +1,16 @@
 <mvc:View
-    controllerName="zatos.qplanboard.controller.QPlanBoard"
+    controllerName="zatos.maintmangr.controller.MOrders"
     xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core"
     displayBlock="true"
     xmlns:f="sap.f"
     xmlns="sap.m">
 
-    <Shell id="shell" appWidthLimited="false">
+    <Shell id="shell">
         <App id="app">
             <pages>
- 
-                <f:DynamicPage id="idDynamicPage_QPLANNER" backgroundDesign="Standard" headerExpanded="true" showFooter="true">
+
+                <f:DynamicPage id="idDynamicPage_MORDERS" backgroundDesign="Standard" headerExpanded="true" showFooter="true">
                     <!-- DynamicPage Title -->
                     <f:title>
                         <f:DynamicPageTitle>
@@ -18,23 +18,23 @@
                                 <Button press="onNavBack" text="" type="Up" tooltip="{i18n>Back}" class="sapUiTinyMarginBegin" />
                             </f:heading>
                             <f:expandedContent>
-                                <Title text="{i18n>Filtering} - {i18n>Title}" titleStyle="H5" />
+                                <Title text="{i18n>Filtering} - {i18n>MaintOrders}" titleStyle="H5" />
                             </f:expandedContent>
                             <f:snappedContent>
-                                <Title text="{i18n>Filtering} - {i18n>Title}" titleStyle="H5" />
+                                <Title text="{i18n>Filtering} - {i18n>MaintOrders}" titleStyle="H5" />
                             </f:snappedContent>
                             <f:actions>
                                 <ToolbarSeparator />
-                                <Button id="idButtonDetails" press="onPressDetails" text="" 
-                                        tooltip="{i18n>ToolTipDetails}" type="Ghost" icon="sap-icon://dimension" class="" />
+                                <Button id="idButtonMOrdersDetails" press="onMOrdersDetails" text="" 
+                                        tooltip="{i18n>ToolTipMOrdersDetails}" type="Ghost" icon="sap-icon://dimension" class="" />
                                 <ToolbarSeparator />
                                 <Button id="idButtonStatusChange" press="onStatusChange" text="" 
                                         tooltip="{i18n>ToolTipStatusChange}" type="Emphasized" icon="sap-icon://enter-more" class="" />
                                 <ToolbarSeparator />
-                                <Button id="idButtonHistorie" press="onPressHistory" text="" 
-                                        tooltip="{i18n>ToolTipHistorie}" type="Emphasized" icon="sap-icon://history" class="" />
+                                <Button id="idButtonMOrdersHistorie" press="onvHistory" text="" 
+                                        tooltip="{i18n>ToolTipMOrdersHistorie}" type="Emphasized" icon="sap-icon://history" class="" />
                                 <ToolbarSeparator />
-                                <Button id="idButtonToggleFooter_QPLANNER" press="onToggleFooter" text="{i18n>ToggleFooterOff}" 
+                                <Button id="idButtonToggleFooter_MORDERS" press="onToggleMOrdersFooter" text="{i18n>ToggleFooterOff}" 
                                         tooltip="{i18n>ToolTipToggleFooter}" type="Transparent" icon="sap-icon://busy" />
                             </f:actions>
                         </f:DynamicPageTitle>
@@ -43,22 +43,22 @@
                     <!-- DynamicPage Header -->
                     <f:header>
                         <f:DynamicPageHeader pinnable="true">
-                            <core:Fragment fragmentName="zatos.qplanboard.view.search.QPlannerFilterBar"  type="XML" />                            
+                            <core:Fragment fragmentName="zatos.maintmangr.view.search.MOrdersFilterBar"  type="XML" />
                         </f:DynamicPageHeader>
                     </f:header>
 
                     <!-- DynamicPage Content -->
                     <f:content>
                         <VBox fitContainer="true" height="100%">
-                            <Panel id="idPanelTableM_QPLANNER" expandable="false" expanded="true" class="sapUiNoContentPadding" visible="true">
+                            <Panel id="idPanelTableM_MORDERS" expandable="false" expanded="true" class="sapUiNoContentPadding" visible="true">
                                 <content>				
-                                    <core:Fragment fragmentName="zatos.qplanboard.view.search.QPlannerSmartTableM" type="XML" />
+                                    <core:Fragment fragmentName="zatos.maintmangr.view.search.MOrdersSmartTableM" type="XML" />
                                 </content>
                             </Panel>
 
-                            <Panel id="idPanelTableUI_QPLANNER" expandable="false" expanded="true" class="sapUiNoContentPadding" visible="false">
+                            <Panel id="idPanelTableUI_MORDERS" expandable="false" expanded="true" class="sapUiNoContentPadding" visible="false">
                                 <content>				
-                                    <core:Fragment fragmentName="zatos.qplanboard.view.search.QPlannerSmartTableUI" type="XML" />
+                                    <core:Fragment fragmentName="zatos.maintmangr.view.search.MOrdersSmartTableUI" type="XML" />
                                 </content>
                             </Panel>
                         </VBox>
@@ -74,9 +74,9 @@
                        </OverflowToolbar>
                     </f:footer>
                 </f:DynamicPage>
-                 
+
             </pages>
         </App>
     </Shell>
-
+    
 </mvc:View>

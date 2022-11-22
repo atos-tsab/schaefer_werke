@@ -17,7 +17,7 @@ builder:
           url: https://app01s11.approyo.com/
           client: "600"
         app:
-          name: ATOS_QPLANBOARD
+          name: ZQPLANBOARD
           description: Atos Quick planning board app
           package: ZPM_QUICK_DISP_FIORI
           transport: S11K905092

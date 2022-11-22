@@ -36,7 +36,8 @@
       "desktop": true,
       "tablet": true,
       "phone": true
-    }
+    },
+		"fullWidth": true
   },
   "sap.ui5": {
     "flexEnabled": true,
@@ -67,7 +68,11 @@
       "": {
         "dataSource": "mainService",
         "preload": true,
-        "settings": {}
+        "settings": {
+          "defaultBindingMode": "OneWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false
+        }
       }
     },
     "resources": {
@@ -83,14 +88,14 @@
         "viewType": "XML",
         "async": true,
         "viewPath": "zatos.qplanboard.view",
-        "controlAggregation": "pages",
         "controlId": "app",
+        "controlAggregation": "pages",
         "clearControlAggregation": false
       },
       "routes": [
         {
-          "name": "RouteQPlanBoard",
-          "pattern": "RouteQPlanBoard",
+          "pattern": "",
+          "name": "qplanner",
           "target": [
             "TargetQPlanBoard"
           ]
@@ -101,7 +106,7 @@
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "QPlanBoard",
+          "viewId": "qplanboard",
           "viewName": "QPlanBoard"
         }
       }

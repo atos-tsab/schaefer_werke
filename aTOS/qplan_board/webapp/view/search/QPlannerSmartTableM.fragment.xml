@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+	xmlns:smartTable="sap.ui.comp.smarttable" 
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+    displayBlock="true"
+    xmlns="sap.m">
+
+	<smartTable:SmartTable 
+		smartFilterId="idSmartFilterBar_QPLANNER" 
+		persistencyKey="SmartTablePKey_QPLANNER" 
+		id="idSmartTableM_QPLANNER" 
+		class="sapUiResponsiveContentPadding"
+		demandPopin="true" 
+		header="{i18n>ResultListOrder}"
+		enableAutoBinding="false" 
+		enableAutoColumnWidth="true"
+		entitySet="C_ObjPgMaintOrder" 
+		tableType="ResponsiveTable"
+
+		showRowCount="true" 
+		showFullScreenButton="true"
+		showVariantManagement="true" 
+
+		useExportToExcel="true" 
+		useVariantManagement="true" 
+		useTablePersonalisation="true" 
+
+		ignoredFields="Cancelbusinesscomplete_ac,Canceltechnicalcomplete_ac,Changeassgmt_ac,Changescheduling_ac,Completebusiness_ac,Completetechnical_ac,Donotexecute_ac,Mainworkcompleted_ac,Readyforscheduling_ac,Release_ac,Scheduleoperations_ac,OrderHasLongText_fc"
+		ignoreFromPersonalisation="Cancelbusinesscomplete_ac,Canceltechnicalcomplete_ac,Changeassgmt_ac,Changescheduling_ac,Completebusiness_ac,Completetechnical_ac,Donotexecute_ac,Mainworkcompleted_ac,Readyforscheduling_ac,Release_ac,Scheduleoperations_ac,OrderHasLongText_fc"
+		initiallyVisibleFields="MaintenanceOrder,MaintenanceOrderType,MaintenanceOrderDesc,MaintenancePlannerGroup,MaintenanceNotification,MaintOrdPersonResponsible,CreatedByUser,CreatedByUserDescription,CreationDate,MaintOrdBasicStartDate,MaintOrdBasicEndDate,MainWorkCenterPlant,Plant,WorkCenterInternalID,MainWorkCenter,MaintPriority,MaintPriority_Text,MaintPriorityType,FunctionalLocation,ConcatenatedActiveSystStsName,ConcatenatedActiveUserStsName,MaintOrdPersonResponsible,MaintOrdSchedBasicStartDate,ScheduledBasicEndDate,MaintenanceOrderThumbnailURL"
+		requestAtLeastFields="LocAcctAssgmtBusinessArea,LocAcctAssgmtBusinessAreaDesc,ABCIndicator,ABCIndicatorDesc,MaintOrdTypeHasActvPhaseModel,Assembly,Assembly_Text,AssemblyName,MasterFixedAsset,MasterFixedAsset_Text,MasterFixedAssetDescription,FixedAsset,TaskListGroup,TaskListType,TaskListGroupCounter,BusinessArea,BusinessAreaName,ResetTechCompltnAndSetNotifSts,OrdIsNotSchedldAutomatically,CityName,LocAcctAssgmtCompanyCode,LocAcctAssgmtCompanyCodeName,CompanyCode,CompanyCodeName,CompleteBusinessAndSetNotifSts,CompleteTechlyAndSetNotifSts,LocAcctAssgmtControllingArea,LocAcctAssgmtCtrlgAreaDesc,ControllingArea,ControllingAreaName,ControllingObjectClass,ControllingObjectClassName,LocAcctAssgmtCostCenter,LocAcctAssgmtCostCenter_Text,ResponsibleCostCenter_Text,CostCenterName,LocAcctAssgmtCostCenterDesc,MaintOrdTotalCost,CreatedByUser,CreatedByUserDescription,CreationDate,Currency,MaintenanceOrderDesc,DoNotExectOrderAndSetNotifSts,Cancelbusinesscomplete_ac,Canceltechnicalcomplete_ac,Changeassgmt_ac,Changescheduling_ac,Completebusiness_ac,Completetechnical_ac,Donotexecute_ac,Mainworkcompleted_ac,Readyforscheduling_ac,Release_ac,Scheduleoperations_ac,OrderHasLongText_fc,MaintOrdBasicEndDate,Equipment,LatestAcceptableCompletionDate,MaintOrderIsFinallyConfirmed,MaintOrderRespPartnerFunction,FunctionalLocation,FunctionalLocationLabelName,OrderHasLongText,MaintOrdHasOpenMainWork,MaintenanceOrderThumbnailURL,MaintOrderHasActiveWorkflow,MaintObjectLocAcctAssgmtNmbr,AssetLocation,AssetLocationName,MainWorkCenter,MainWorkCenter_Text,MaintenanceActivityType,MaintenanceActivityTypeName,MaintenanceRevision,to_MaintenanceRevision/MaintenanceRevisionDesc,MaintenanceItem,MaintenanceItemDescription,MaintenancePlan,MaintenancePlanDesc,MaintenancePlant,PlantName,MainWorkCenterText,MaintOrdCostCriticality,MaintOrderWithLeadingZeros,MaintPriorityColorCode,Material,Material_Text,MaterialName,MaintenanceNotification,MaintenanceNotificationText,MaintenanceOrderInternalID,MaintOrderNumberOfOperations,MaintenanceOrder,MaintenanceOrderType,MaintenanceOrderTypeName,OrderNmbrOfAttachedDocuments,MaintOrdHasOpenPurchaseOrders,MaintOrderHasOpenReservations,MaintOrdHasOpenServices,MaintOrdPersonResponsible,PersonResponsibleName,PlantSectionPersonRespPhone,MaintenancePlannerGroup,MaintenancePlannerGroup_Text,MaintenancePlannerGroupName,MaintenanceOrderPlanningCode,MaintOrderPlanningCodeName,MaintenancePlanningPlant,MaintenancePlanningPlantName,Plant,PlantSection,PlantSectionPersonRespName,MaintPriority,MaintPriority_Text,MaintPriorityDesc,MaintPriorityType,to_MaintenancePriorityType/MaintPriorityType_Text,OrderProcessingGroup,OrderProcessingGroupName,WorkCenter,WorkCenterText,ProfitCenter,ProfitCenter_Text,ProfitCenterName,Project,ProjectDescription,MaintOrderReferenceDate,RefTimeForOrderCompletion,ResponsibleCostCenter,AssetRoom,ScheduledBasicEndDate,MaintOrdSchedBasicStartDate,MaintOrdSchedBasicStartTime,BasicSchedulingType,SerialNumber,SettlementOrder,MaintOrdProcessPhaseCode_Text,IsCloudSystem,SortField,MaintOrdBasicStartDate,StatusProfile,StatusName,MaintOrdProcessSubPhaseCode_Text,OperationSystemCondition,OperationSystemConditionText,ConcatenatedActiveSystStsName,TaskList,TaskListDesc,TaskListKeyDate,TechnicalObjectLabel,TechnicalObjectDescription,TechnicalObject,to_TechnicalObjQuickVw/TechnicalObjectDescription,TechObjIsEquipOrFuncnlLoc,TechObjIsEquipOrFuncnlLoc_Text,TechObjIsEquipOrFuncnlLocDesc,ConcatenatedActiveUserStsName,UserStatus,LocAcctAssgmtWBSElement,LocAcctAssgmtWBSElementDesc,WBSElementInternalID,WBSElement,WBSDescription,WorkCenterInternalID,MainWorkCenterPlant,MainWorkCenterPlantName"
+		beforeRebindTable="onBeforeRebindTable_QPLANNER"
+		width="auto"
+		visible="true">
+		
+		<smartTable:customToolbar>
+			<OverflowToolbar design="Solid">
+				<ToolbarSpacer />
+				<Button text="{i18n>Assignment}" type="Emphasized" tooltip="{i18n>AssignmentToolTip}" 
+					press="onAssignmentPress" />
+				<ToolbarSeparator />
+				<Button type="Attention" text="{i18n>TableTypeExcel}" tooltip="{i18n>ToolTipTableTypeExcel}" 
+						press="onPressTableTypeExcel" iconFirst="false" icon="sap-icon://table-view" />
+			</OverflowToolbar>
+		</smartTable:customToolbar>
+
+		<core:Fragment fragmentName="zatos.qplanboard.view.search.QPlannerTableM" type="XML" />
+
+		<smartTable:layoutData>
+			<FlexItemData growFactor="1" baseSize="0%"/>
+		</smartTable:layoutData>
+	</smartTable:SmartTable>
+
+</core:FragmentDefinition>

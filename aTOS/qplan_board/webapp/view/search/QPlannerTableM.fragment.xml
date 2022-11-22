@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+    displayBlock="true"
+    xmlns="sap.m">
+
+		<Table 
+			class="sapUiNoContentPadding"
+			id="idTableM_QPLANNER"
+			growing="true"
+			growingThreshold="10"
+			growingScrollToLoad="true"
+			alternateRowColors="true"
+			contextualWidth="auto"
+			fixedLayout="false"
+			mode="SingleSelectLeft"
+			selectionChange="onPressMobileSelectionChanged"
+			width="auto"
+			visible="true">
+			<items>
+				<ColumnListItem vAlign="Middle" type="Navigation" press="onPressMobileEntry" 
+								navigated="{ parts: ['settings>/navigatedItem', 'SceneNumber'], formatter: '._isNavigated' }">
+                </ColumnListItem>
+ 			</items>
+		</Table>
+
+</core:FragmentDefinition>

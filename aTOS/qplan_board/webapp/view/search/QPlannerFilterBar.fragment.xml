@@ -1,0 +1,144 @@
+<core:FragmentDefinition
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+	xmlns:smartTable="sap.ui.comp.smarttable" 
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+    displayBlock="true"
+    xmlns="sap.m">
+
+	<smartFilterBar:SmartFilterBar 
+		persistencyKey="SmartFilterPKey_QPLANNER"
+		id="idSmartFilterBar_QPLANNER" 
+		class="sapUiResponsiveContentPadding"
+		entitySet="C_ObjPgMaintOrder" 
+		enableBasicSearch="false"
+		filterBarExpanded="true"
+		
+		considerSelectionVariants="true" 
+		beforeVariantSave="onBeforeVariantSave"  
+		afterVariantLoad="onAfterVariantLoad"
+		clear="onClearClicked"
+
+		showClearOnFB="true"
+		showClearButton="true"
+		showRestoreOnFB="true"
+		showRestoreButton="true"				
+		showFilterConfiguration="true"
+
+		useToolbar="true"
+		useProvidedNavigationProperties="true">
+		<smartFilterBar:controlConfiguration>
+			<smartFilterBar:ControlConfiguration
+				index="0"
+				groupId="DefaultFilters"
+				key="MaintenanceOrder" 
+				label="{i18n>MaintenanceOrder}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="false" />			
+			<smartFilterBar:ControlConfiguration 
+				index="1"
+				groupId="DefaultFilters"
+				key="MaintenanceOrderType" 
+				label="{i18n>MaintenanceOrderType}"
+				controlType="dropDownList"
+				displayBehaviour="descriptionOnly"
+				filterType="multiple"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="true">
+				<smartFilterBar:customControl>
+					<MultiComboBox
+        				id="idMultiComboBoxMaintenanceOrderTypeF4" 
+						showSecondaryValues="true">
+					</MultiComboBox>
+				</smartFilterBar:customControl>
+			</smartFilterBar:ControlConfiguration>
+			
+<!-- 			<smartFilterBar:ControlConfiguration
+				index="1"
+				groupId="DefaultFilters"
+				key="MaintenanceOrderType" 
+				label="{i18n>MaintenanceOrderType}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="false" />
+ -->				
+			<smartFilterBar:ControlConfiguration
+				index="2"
+				groupId="DefaultFilters"
+				key="FunctionalLocation" 
+				label="{i18n>FunctionalLocation}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="true" />
+			<smartFilterBar:ControlConfiguration
+				index="3"
+				groupId="DefaultFilters"
+				key="MainWorkCenter" 
+				label="{i18n>MainWorkCenter}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="false" />
+			<smartFilterBar:ControlConfiguration 
+				index="4"
+				width="600px"
+				groupId="DefaultFilters"
+				key="MaintOrdBasicStartDate" 
+				label="{i18n>StartDate}"
+				conditionType="sap.ui.comp.config.condition.DateRangeType" 
+				visibleInAdvancedArea="true"
+				preventInitialDataFetchInValueHelpDialog="false" />
+			<smartFilterBar:ControlConfiguration
+				index="5"
+				groupId="DefaultFilters"
+				key="MaintenancePlannerGroup" 
+				label="{i18n>PlannerGroup}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="false" />
+			<smartFilterBar:ControlConfiguration
+				index="6"
+				groupId="DefaultFilters"
+				key="MainWorkCenterPlant" 
+				label="{i18n>MainWorkCenterPlant}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="false" />
+				
+			<smartFilterBar:ControlConfiguration
+				index="7"
+				groupId="OptionalFilters"
+				key="ConcatenatedActiveSystStsName" 
+				label="{i18n>SystemStatus}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="false" />
+			<smartFilterBar:ControlConfiguration
+				index="8"
+				groupId="OptionalFilters"
+				key="ConcatenatedActiveUserStsName" 
+				label="{i18n>UserStatus}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="false" />
+			<smartFilterBar:ControlConfiguration
+				index="9"
+				groupId="OptionalFilters"
+				key="MaintOrdPersonResponsible" 
+				label="{i18n>ResponsiblePerson}"
+				visibleInAdvancedArea="true" 
+				preventInitialDataFetchInValueHelpDialog="true" />
+
+			<!-- Hiding filters from the Filter dialog -->	
+<!-- 			<core:Fragment fragmentName="zatos.qplanboard.view.search.QPlannerHiddenFilters" type="XML" />
+ -->
+		</smartFilterBar:controlConfiguration>
+
+		<smartFilterBar:groupConfiguration>
+			<smartFilterBar:GroupConfiguration
+				key="DefaultFilters" label="{i18n>DefaultFilters}">
+			</smartFilterBar:GroupConfiguration>
+			<smartFilterBar:GroupConfiguration
+				key="OptionalFilters" label="{i18n>OptionalFilters}">
+			</smartFilterBar:GroupConfiguration>
+		</smartFilterBar:groupConfiguration>
+
+		<smartFilterBar:layoutData>
+			<FlexItemData shrinkFactor="0" />
+		</smartFilterBar:layoutData>
+	</smartFilterBar:SmartFilterBar>
+
+</core:FragmentDefinition>
