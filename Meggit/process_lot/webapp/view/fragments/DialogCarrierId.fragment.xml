@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+
+	<SelectDialog
+		class="sapUiPopupWithPadding"
+		items="{/Collection}"
+		search="_handleValueHelpSearch($event,'CarrierId')"
+		confirm="_handleValueHelpClose"
+		cancel="_handleValueHelpClose">
+		<StandardListItem title="{CarrierId}" />
+	</SelectDialog>
+
+</core:FragmentDefinition>

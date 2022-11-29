@@ -13,6 +13,10 @@
             }
         </style>
 
+<!--         <link rel="stylesheet" type="text/css" href="/XMII/CM/Meggitt_Carbon_Refresh_Common/Apps/StylePage/Style.css"></link>
+            src="/sapui5-1.71/resources/sap-ui-core.js"
+
+ -->
         <script
             id="sap-ui-bootstrap"
             src="resources/sap-ui-core.js"
@@ -20,7 +24,8 @@
             data-sap-ui-resourceroots='{"processlot": "./"}'
             data-sap-ui-compatVersion="edge"
             data-sap-ui-async="true"
-            data-sap-ui-frameOptions="trusted">
+            data-sap-ui-frameOptions="trusted"
+            data-sap-ui-oninit="module:sap/ui/core/ComponentSupport">
         </script>
 
         <script id="locate-reuse-libs" src="./utils/locate-reuse-libs.js"

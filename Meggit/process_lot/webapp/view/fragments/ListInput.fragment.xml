@@ -1,0 +1,128 @@
+<core:FragmentDefinition
+	xmlns:layout="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	height="100%">
+
+	<HBox wrap="Wrap" class="sapUiResponsiveMargin">
+		<VBox class="sapUiLargeMarginBegin sapUiMediumMarginTop" width="30%" wrap="Wrap">
+			<HBox class="sapUiNoMargin">
+				<Label text="{i18n>CarrierTypeColon}" width="90px" class="sapUiTinyMarginTop" />
+				<ComboBox 
+					id="idComboBoxCarrierType" 
+					filterSecondaryValues="true" 
+					showSecondaryValues="true" 
+					width="auto" 
+					change="onChangeCarrierType">
+				</ComboBox>
+
+<!-- 				<ComboBox
+					id="idComboBoxCarrierType"
+					filterSecondaryValues="true"
+					showSecondaryValues="true"
+					width="auto"
+					change="onChangeCarrierType">
+					<items>
+						<core:Item xmlns:core="sap.ui.core" key="Jig" text="Jig" />
+						<core:Item xmlns:core="sap.ui.core" key="Stack" text="Stack" />
+					</items>
+				</ComboBox>
+ -->
+			</HBox>
+
+			<HBox class="sapUiNoMargin">
+				<Label text="{i18n>CarrierIdColon}" width="90px" class="sapUiTinyMarginTop" />
+				<Input
+					id="idInputCarrierId"
+					width="auto"
+					type="Text"
+					placeholder="{i18n>CarrierIdPlaceholder}"
+					enabled="true"
+					showValueHelp="true"
+					change="onChangeCarrierId"
+					valueHelpRequest="onCarrierIdValueHelp" />
+			</HBox>
+
+			<HBox class="sapUiNoMargin">
+				<Label text="" width="90px" class="sapUiTinyMarginTop" />
+				<Label text="" width="142px" class="sapUiTinyMarginTop" />
+				<Button id="idButtonCreateTable" press="onCreateCarrierId" text="{i18n>Create}" tooltip="{i18n>CreateToolTip}" 
+						type="Emphasized" enabled="false" visible="true" />
+			</HBox>
+
+			<HBox class="sapUiNoMargin">
+				<Label text="" width="90px" class="sapUiTinyMarginTop" />
+				<Label text="" width="auto" class="sapUiTinyMarginTop" />
+			</HBox>
+
+			<HBox class="sapUiNoMargin">
+				<Label text="{i18n>SFCColon}" width="90px" class="sapUiTinyMarginTop" />
+				<ComboBox 
+					id="idComboBoxSFC" 
+					filterSecondaryValues="true"
+					showSecondaryValues="true"
+					width="auto"
+					change="onChangeComboBoxSFC">
+				</ComboBox>
+			</HBox>
+
+			<HBox class="sapUiNoMargin">
+				<Label text="" width="90px" class="sapUiTinyMarginTop" />
+				<Label text="" width="158px" class="sapUiTinyMarginTop" />
+				<Button id="idButtonAddSFC" press="onAddSFC" text="{i18n>Add}" tooltip="{i18n>AddSFCToolTip}" 
+						type="Emphasized" enabled="false" visible="true" />
+			</HBox>
+		</VBox>
+
+		<VBox wrap="Wrap" class="sapUiLargeMarginBegin sapUiMediumMarginTop" width="auto" visible="true">
+			<VBox class="sapUiNoMargin" width="100%">
+				<Toolbar>
+					<content>
+						<Title text="{i18n>LotList}" titleStyle="H4" />
+						<ToolbarSpacer />
+						<ToolbarSeparator />
+						<Button id="idButtonRemoveAll" press="onRemoveAll" text="{i18n>RemoveAll}" tooltip="{i18n>RemoveAllToolTip}" 
+								type="Reject" enabled="false" visible="true" />
+					</content>
+				</Toolbar>
+
+				<ScrollContainer id="idScrollContainerSFC" height="690px" width="100%" vertical="true" horizontal="false">
+					<Table 
+						id="idTableSFCLot"
+						inset="false" 
+						alternateRowColors="true"
+						contextualWidth="auto"
+						mode="None"
+						items="{ path: '/SFCCollection' }"
+						width="480px">
+						<columns>
+							<Column minScreenWidth="Phone" demandPopin="true" width="70px" hAlign="Left">
+								<Text text="{i18n>Position}" />
+							</Column>
+							<Column minScreenWidth="Phone" demandPopin="true" width="240px" hAlign="Left">
+								<Text text="{i18n>SFCNumber}" />
+							</Column>
+							<Column minScreenWidth="Phone" demandPopin="true" width="150px" hAlign="Right">
+								<Text text="{i18n>Selection}" />
+							</Column>
+						</columns>
+						
+						<items>
+							<ColumnListItem vAlign="Middle" type="Active">
+								<cells>
+									<Text text="{Position}" />
+									<Text text="{SFCNumber}" />
+									<Button press="onRemoveSelected($event,${Position},${SFCNumber})" text="" tooltip="{i18n>RemoveSelToolTip}" 
+											type="Reject" icon="sap-icon://sys-minus" iconFirst="true" visible="{VisibleSel}" enabled="{Selection}" />
+								</cells>
+							</ColumnListItem>
+						</items>
+						
+					</Table>
+				</ScrollContainer>
+			</VBox>
+		</VBox>
+	</HBox>
+
+</core:FragmentDefinition>

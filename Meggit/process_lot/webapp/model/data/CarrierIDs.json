@@ -1,0 +1,104 @@
+{
+    "results": [
+        {
+            "CarrierType": "Jig",
+            "CarrierId": "J000123466", "toJigSFC": [
+                { "SFCNumber": "SFC00010200" },
+                { "SFCNumber": "SFC00010201" },
+                { "SFCNumber": "SFC00010202" }
+            ]
+        },
+        {
+            "CarrierType": "Jig",
+            "CarrierId": "J000123468", "toJigSFC": [
+                { "SFCNumber": "SFC00010203" },
+                { "SFCNumber": "SFC00010204" },
+                { "SFCNumber": "SFC00010205" },
+                { "SFCNumber": "SFC00010206" }
+            ]
+        },
+        {
+            "CarrierType": "Jig",
+            "CarrierId": "J000123469", "toJigSFC": [
+                { "SFCNumber": "SFC00010207" },
+                { "SFCNumber": "SFC00010208" },
+                { "SFCNumber": "SFC00010209" }
+            ]
+        },
+        {
+            "CarrierType": "Jig",
+            "CarrierId": "J000123470", "toJigSFC": [
+                { "SFCNumber": "SFC00010210" },
+                { "SFCNumber": "SFC00010211" }
+            ]
+        },
+        {
+            "CarrierType": "Jig",
+            "CarrierId": "J000123471", "toJigSFC": [
+                { "SFCNumber": "SFC00010212" }
+            ]
+        },
+        {
+            "CarrierType": "Jig",
+            "CarrierId": "J000123474", "toJigSFC": [
+                { "SFCNumber": "SFC00010212" },
+                { "SFCNumber": "SFC00010213" },
+                { "SFCNumber": "SFC00010214" },
+                { "SFCNumber": "SFC00010215" },
+                { "SFCNumber": "SFC00010216" },
+                { "SFCNumber": "SFC00010217" }
+            ]
+        },
+        {
+            "CarrierType": "Jig",
+            "CarrierId": "J000123475", "toJigSFC": [
+                { "SFCNumber": "SFC00010218" },
+                { "SFCNumber": "SFC00010219" },
+                { "SFCNumber": "SFC00010220" }
+            ]
+        },
+        {
+            "CarrierType": "Stack",
+            "CarrierId": "S000513488", "toStackSFC": [
+                { "SFCNumber": "SFC00010300" },
+                { "SFCNumber": "SFC00010301" },
+                { "SFCNumber": "SFC00010302" }
+            ]
+        },
+        {
+            "CarrierType": "Stack",
+            "CarrierId": "S000513489", "toStackSFC": [
+                { "SFCNumber": "SFC00010303" },
+                { "SFCNumber": "SFC00010304" },
+                { "SFCNumber": "SFC00010305" },
+                { "SFCNumber": "SFC00010306" },
+                { "SFCNumber": "SFC00010307" },
+                { "SFCNumber": "SFC00010308" },
+                { "SFCNumber": "SFC00010309" }
+            ]
+        },
+        {
+            "CarrierType": "Stack",
+            "CarrierId": "S000513491", "toStackSFC": [
+                { "SFCNumber": "SFC00010310" },
+                { "SFCNumber": "SFC00010311" },
+                { "SFCNumber": "SFC00010312" }
+            ]
+        },
+        {
+            "CarrierType": "Stack",
+            "CarrierId": "S000513492", "toStackSFC": [
+                { "SFCNumber": "SFC00010313" }
+            ]
+        },
+        {
+            "CarrierType": "Stack",
+            "CarrierId": "S000513494", "toStackSFC": [
+                { "SFCNumber": "SFC00010313" },
+                { "SFCNumber": "SFC00010314" },
+                { "SFCNumber": "SFC00010315" },
+                { "SFCNumber": "SFC00010316" }
+            ]
+        }
+    ]
+}
