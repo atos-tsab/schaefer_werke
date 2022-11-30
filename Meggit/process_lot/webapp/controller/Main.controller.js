@@ -139,7 +139,7 @@
 							let item = data[j];
 
 							if (item.Position === lastPos) {
-								item.SFCNumber  = sValue;
+								item.SFC        = sValue;
 								item.Selection  = true;
 								item.VisibleSel = true;
 
@@ -160,8 +160,6 @@
 		},
 
 		onRemoveSelected: function (oEvent, pos, sfcNumber) {
-			// qhelp.alertMe("Removed selected entry [" + pos + "] = [" + sfcNumber + "]!");
-
 			if (oEvent !== null && oEvent !== undefined) {
 				if (oEvent.getSource() !== null && oEvent.getSource() !== undefined) {
 					var sValue = sfcNumber;
@@ -174,7 +172,7 @@
 							let item = data[j];
 
 							if (item.Position === pos) {
-								item.SFCNumber  = "";
+								item.SFC        = "";
 								item.Selection  = false;
 								item.VisibleSel = false;
 							} else if (item.Position === (pos - 1)) {
@@ -184,6 +182,10 @@
 
 						this.SFCTableModel.setData({ SFCCollection: data });
 						this.mTable.setModel(this.SFCTableModel);
+
+						if (pos === 1) {
+							this._resetBySelection();
+						}
 					}
 				}
 			}
@@ -249,6 +251,9 @@
 			var that = this;
 	
 			if (lastPos > 0) {
+				// ---- Create a new Carrierd dataset
+				this._createCarrierIdSet(this.CarrierType, this.NewCarrierId, data);
+
 				this.byId("idButtonCreateTable").setEnabled(true);
 
 				qhelp.alertMe("New Carrier ID created!");
@@ -264,6 +269,80 @@
 			}
 		},
 
+		_createCarrierIdSet: function (carrierType, newCarrierId, sfcData) {
+			var cidModel = this.getOwnerComponent().getModel("cidData");
+			var cData = cidModel.getData();
+			var mData = {};
+			var sData = {};
+
+			if (carrierType === "Jig") {
+				mData = {
+					"CarrierTypeKey": "CTK001",
+					"CarrierType": "Jig",
+					"I_ProcessLot": newCarrierId.I_ProcessLot, 
+					"I_Site": 3015,
+					"toStackSFC": []
+				};
+			} else if (carrierType === "Stack") {
+				mData = {
+					"CarrierTypeKey": "CTK002",
+					"CarrierType": "Stack",
+					"I_ProcessLot": newCarrierId.I_ProcessLot, 
+					"I_Site": 3015,
+					"toStackSFC": []
+				};
+			}
+			
+			// ---- Find last added Position
+			var lastPos = this._findLastPosition(sfcData) - 1;
+			var maxPos  = lastPos;
+
+			// ---- Add the last open Position
+			for (let j = 0; j < sfcData.length; j++) {
+				let item = sfcData[j];
+
+				if (item.Position === lastPos) {
+					sData = {
+						"RowNumber": item.Position,
+						"SFC":       item.SFC
+					};
+
+					mData.toStackSFC.push(sData);
+
+					lastPos = lastPos - 1;
+
+					// ---- Remove selected SFC entry from the SFC Model
+					this._removeSfcSet(item.SFC);
+				}
+
+				if (lastPos === 1) {
+					this._resetBySelection();
+				}
+			}
+			
+			cData.results.push(mData);
+		},
+
+		_removeSfcSet: function (sfcNumber) {
+			// ---- Remove entries from the SFC list
+			var sfcModel = this.getOwnerComponent().getModel("sfcData");
+			var mData = sfcModel.getData().results;
+			
+			// ---- Add the last open Position
+			for (let j = 0; j < mData.length; j++) {
+				let item = mData[j];
+
+				if (item.SFC === sfcNumber) {
+					// ---- Remove selected SFC entry from the SFC Model
+					mData.splice(j, 1);
+				}
+			}
+
+			this.SFCModel.setData({
+				"SFCCollection": mData
+			});
+		},
+
 		onChangeCarrierId: function (oEvent) {
 			if (oEvent !== null && oEvent !== undefined) {
 				if (oEvent.getSource() !== null && oEvent.getSource() !== undefined) {
@@ -275,7 +354,7 @@
 						var check = this._checkCarrierId(oData, sValue);
 
 						if (!check) {
-							var data = { CarrierId: sValue };
+							var data = { I_ProcessLot: sValue };
 
 							this.NewCarrierId = data;					
 							this._removeTableData();
@@ -317,8 +396,9 @@
 		// --------------------------------------------------------------------------------------------------------------------
 
 		_setCarrierTypeData: function (ctype) {
+			var cidModel = this.getOwnerComponent().getModel("cidData");
 			var id = this.byId("idComboBoxCarrierType");
-			var that = this;
+			var mData = { results:[] };
 			var entry = "";
 
 			if (ctype === "JIG") { 
@@ -330,61 +410,34 @@
 			this.CarrierType = entry;
 			this._setCarrierIdData();
 
-			// ---- Set Data model for the Carrier Type
-			var mData = {
-				results:[
-					{ "CarrierTypeKey": "CTK001", "CarrierTypeTxt": "Jig"   },
-					{ "CarrierTypeKey": "CTK002", "CarrierTypeTxt": "Stack" }
-				]
-			};
+			// ---- Set Data model for the selected Carrier Type
+			if (cidModel !== null && cidModel !== undefined) {
+				var cData = cidModel.getData().results;
+				var stackCount = 0;
+				var jigCount   = 0;
 
-			// ---- Create a ComboBox binding
-			// ---- onSetComboBoxDataWithSelection: (Jason Model, ComboBox ID, mData, Collection,          Key,              Name,             Additional Text,  Sort Parameter,   Param,            Entry, show Additional Text)
-			eams.onSetComboBoxDataWithSelection(this.CarrierTypeModel, id, mData, "CarrierTypeCollection", "CarrierTypeKey", "CarrierTypeTxt", "CarrierTypeKey", "CarrierTypeTxt", "CarrierTypeTxt", entry, true);
-		},
+				for (let i = 0; i < cData.length; i++) {
+					var item = cData[i];
+					var xData = {
+							"CarrierTypeKey": item.CarrierTypeKey,
+							"CarrierType":    item.CarrierType
+						};
 
-		_setCarrierIdDataJig: function () {
-			var id = this.byId("idComboBoxCarrierId");
+					if (item.CarrierType === "Jig" && jigCount < 1) {
+						mData.results.push(xData);
 
-			// ---- Set Data model for the Carrier Type Jig
-			var mData = {
-				results:[
-					{CarrierId:"J000123466"},
-					{CarrierId:"J000123468"},
-					{CarrierId:"J000123469"},
-					{CarrierId:"J000123470"},
-					{CarrierId:"J000123471"},
-					{CarrierId:"J000123474"},
-					{CarrierId:"J000123475"}
-				]
-			};
+						jigCount = jigCount + 1;
+					} else if (item.CarrierType === "Stack" && stackCount < 1) {
+						mData.results.push(xData);
 
-			this.mData = mData;
+						stackCount = stackCount + 1;
+					}
+				}
+			}
 
-			// ---- Create a ComboBox binding
-			// ---- onSetComboBoxData: (Jason Model, ComboBox ID, mData, Collection, Key, Name, Additional Text, Sort Parameter, show Additional Text)
-			eams.onSetComboBoxData(this.CarrierIdModel, id, mData, "Collection", "", "CarrierId", "", "CarrierId",false);
-		},
-
-		_setCarrierIdDataStack: function () {
-			var id = this.byId("idComboBoxCarrierId");
-
-			// ---- Set Data model for the Carrier Type Stack
-			var mData = {
-				results:[
-					{CarrierId:"S000513488"},
-					{CarrierId:"S000513489"},
-					{CarrierId:"S000513491"},
-					{CarrierId:"S000513492"},
-					{CarrierId:"S000513494"}
-				]
-			};
-
-			this.mData = mData;
-
-			// ---- Create a ComboBox binding
-			// ---- onSetComboBoxData: (Jason Model, ComboBox ID, mData, Collection, Key, Name, Additional Text, Sort Parameter, show Additional Text)
-			eams.onSetComboBoxData(this.CarrierIdModel, id, mData, "Collection", "", "CarrierId", "", "CarrierId",false);
+			// ---- Create a ComboBox binding oModels.undefined.oData.CarrierTypeCollection[1].CarrierType
+			// ---- onSetComboBoxDataWithSelection: (Jason Model, ComboBox ID, mData, Collection,          Key,              Name,          Additional Text, Sort Parameter, Param,      Entry, show Additional Text)
+			eams.onSetComboBoxDataWithSelection(this.CarrierTypeModel, id, mData, "CarrierTypeCollection", "CarrierTypeKey", "CarrierType", "CarrierTypeKey", "CarrierType", "CarrierType", entry, true);
 		},
 
 		_setCarrierIdData: function () {
@@ -401,7 +454,7 @@
 					var item = cData[i];
 					
 					if (item.CarrierType === that.CarrierType) {
-						var xData = {CarrierId: item.CarrierId};
+						var xData = {I_ProcessLot: item.I_ProcessLot};
 
 						mData.results.push(xData);
 					}
@@ -412,7 +465,7 @@
 
 			// ---- Create a ComboBox binding
 			// ---- onSetComboBoxData: (Jason Model, ComboBox ID, mData, Collection, Key, Name, Additional Text, Sort Parameter, show Additional Text)
-			eams.onSetComboBoxData(this.CarrierIdModel, id, mData, "Collection", "", "CarrierId", "", "CarrierId",false);
+			eams.onSetComboBoxData(this.CarrierIdModel, id, mData, "Collection", "", "I_ProcessLot", "", "I_ProcessLot",false);
 		},
 
 		_setSFCNumberData: function () {
@@ -422,7 +475,7 @@
 
 			// ---- Create a ComboBox binding
 			// ---- onSetComboBoxData: (Jason Model, ComboBox ID, mData, Collection, Key, Name, Additional Text, Sort Parameter, show Additional Text)
-			eams.onSetComboBoxData(this.SFCModel, id, mData, "SFCCollection", "SFCNumber", "SFCNumber", "SFCNumber", "SFCNumber", false);
+			eams.onSetComboBoxData(this.SFCModel, id, mData, "SFCCollection", "SFC", "SFC", "SFC", "SFC", false);
 		},
 
 		_fillCarrierIdList: function (carrierId) {
@@ -438,7 +491,7 @@
 					var item = cData[i];
 					
 					if (item.CarrierType === that.CarrierType) {
-						if (item.CarrierId === carrierId) {
+						if (item.I_ProcessLot === carrierId) {
 							if (item.CarrierType === "Jig") {
 								mData.results = item.toJigSFC;
 							} else if (item.CarrierType === "Stack") {
@@ -459,9 +512,17 @@
 			// ---- Reset Table
 			this._removeTableData();
 
+			// ---- Sort of String fields
+			mData.sort(function (a, b) {
+				var numA = a.RowNumber.toString();
+				var numB = b.RowNumber.toString();
+
+				return numA.localeCompare(numB);
+			});
+
 			// ---- Add data to SFC Table
 			for (let i = 0; i < mData.length; i++) {
-				var sValue = mData[i].SFCNumber;
+				var sValue = mData[i].SFC;
 				
 				if (sValue !== null && sValue !== undefined && sValue !== "") {
 					var data = this.SFCTableModel.getData().SFCCollection;
@@ -478,7 +539,7 @@
 						let item = data[j];
 	
 						if (item.Position === lastPos) {
-							item.SFCNumber  = sValue;
+							item.SFC        = sValue;
 							item.Selection  = true;
 							item.VisibleSel = true;
 	
@@ -578,7 +639,7 @@
 			for (let index = maxPositions; index > 0; index--) {
 				var item = {
 					Position:   index,
-					SFCNumber:  "",
+					SFC:        "",
 					Selection:  false,
 					VisibleSel: false
 				};
@@ -637,7 +698,7 @@
 			// ---- Check the new Carrier ID against the model
 			if (oData !== null && oData !== undefined) {
 				for (var i = 0; i < oData.length; i++) {
-					var id = oData[i].CarrierId;
+					var id = oData[i].I_ProcessLot;
 					
 					if (id === sValue) {						
 						check = true;
@@ -674,7 +735,7 @@
 				let item = data[index];
 					item.Selection = false;
 
-				if (item.SFCNumber !== "") {
+				if (item.SFC !== "") {
 					lastPos = item.Position;
 
 					break;
@@ -689,13 +750,23 @@
 
 		_resetAll: function () {
 			// ---- Reset Model data
-			this.CarrierTypeModel.setData([]);
 			this.CarrierIdModel.setData([]);
 			this.SFCTableModel.setData([]);
 			this.SFCModel.setData([]);
 
 			// ---- Reset the Buttons
 			this._resetButtons();
+		},
+
+		_resetBySelection: function () {
+			// ---- Reset Buttons
+			this.byId("idButtonRemoveAll").setEnabled(false);
+			this.byId("idButtonCompleteAll").setEnabled(false);
+			this.byId("idButtonAddSFC").setEnabled(false);
+
+			// ---- Reset SFC Combo Box
+			this.byId("idComboBoxSFC").setSelectedKey(undefined);
+			this.byId("idComboBoxSFC").setValue("");
 		},
 
 		_resetByCarrierType: function () {
