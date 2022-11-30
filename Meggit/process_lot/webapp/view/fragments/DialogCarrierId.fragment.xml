@@ -5,10 +5,10 @@
 	<SelectDialog
 		class="sapUiPopupWithPadding"
 		items="{/Collection}"
-		search="_handleValueHelpSearch($event,'CarrierId')"
+		search="_handleValueHelpSearch($event,'I_ProcessLot')"
 		confirm="_handleValueHelpClose"
 		cancel="_handleValueHelpClose">
-		<StandardListItem title="{CarrierId}" />
+		<StandardListItem title="{I_ProcessLot}" />
 	</SelectDialog>
 
 </core:FragmentDefinition>
