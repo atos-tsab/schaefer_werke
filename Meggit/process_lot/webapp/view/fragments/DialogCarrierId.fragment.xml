@@ -3,12 +3,13 @@
 	xmlns="sap.m">
 
 	<SelectDialog
+		id="idComboBoxCarrierId"
 		class="sapUiPopupWithPadding"
 		items="{/Collection}"
-		search="_handleValueHelpSearch($event,'I_ProcessLot')"
+		search="_handleValueHelpSearch($event,'ProcessLot')"
 		confirm="_handleValueHelpClose"
 		cancel="_handleValueHelpClose">
-		<StandardListItem title="{I_ProcessLot}" />
+		<StandardListItem title="{ProcessLot}" />
 	</SelectDialog>
 
 </core:FragmentDefinition>

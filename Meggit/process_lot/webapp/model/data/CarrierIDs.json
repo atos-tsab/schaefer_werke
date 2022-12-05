@@ -1,18 +1,20 @@
 {
     "results": [
         {
-            "CarrierTypeKey": "CTK001",
-            "CarrierType": "Jig",
-            "I_ProcessLot": "J000123466", "I_Site": 3015, "toJigSFC": [
+            "CARRIER_TYPE": "JIG",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+            "DESCRIPTION": "Jig",
+            "ProcessLot": "J000123466", "I_Site": 3015, "toJigSFC": [
                 { "RowNumber": 3, "SFC": "SFC00010200" },
                 { "RowNumber": 2, "SFC": "SFC00010201" },
                 { "RowNumber": 1, "SFC": "SFC00010202" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK001",
-            "CarrierType": "Jig",
-            "I_ProcessLot": "J000123468", "I_Site": 3015, "toJigSFC": [
+            "CARRIER_TYPE": "JIG",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+            "DESCRIPTION": "Jig",
+            "ProcessLot": "J000123468", "I_Site": 3015, "toJigSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010203" },
                 { "RowNumber": 2, "SFC": "SFC00010204" },
                 { "RowNumber": 3, "SFC": "SFC00010205" },
@@ -20,33 +22,37 @@
             ]
         },
         {
-            "CarrierTypeKey": "CTK001",
-            "CarrierType": "Jig",
-            "I_ProcessLot": "J000123469", "I_Site": 3015, "toJigSFC": [
+            "CARRIER_TYPE": "JIG",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+            "DESCRIPTION": "Jig",
+            "ProcessLot": "J000123469", "I_Site": 3015, "toJigSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010207" },
                 { "RowNumber": 2, "SFC": "SFC00010208" },
                 { "RowNumber": 3, "SFC": "SFC00010209" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK001",
-            "CarrierType": "Jig",
-            "I_ProcessLot": "J000123470", "I_Site": 3015, "toJigSFC": [
+           "CARRIER_TYPE": "JIG",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+            "DESCRIPTION": "Jig",
+            "ProcessLot": "J000123470", "I_Site": 3015, "toJigSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010210" },
                 { "RowNumber": 2, "SFC": "SFC00010211" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK001",
-            "CarrierType": "Jig",
-            "I_ProcessLot": "J000123471", "I_Site": 3015, "toJigSFC": [
+            "CARRIER_TYPE": "JIG",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+            "DESCRIPTION": "Jig",
+            "ProcessLot": "J000123471", "I_Site": 3015, "toJigSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010212" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK001",
-            "CarrierType": "Jig",
-            "I_ProcessLot": "J000123474", "I_Site": 3015, "toJigSFC": [
+            "CARRIER_TYPE": "JIG",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+            "DESCRIPTION": "Jig",
+            "ProcessLot": "J000123474", "I_Site": 3015, "toJigSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010212" },
                 { "RowNumber": 2, "SFC": "SFC00010213" },
                 { "RowNumber": 3, "SFC": "SFC00010214" },
@@ -56,27 +62,30 @@
             ]
         },
         {
-            "CarrierTypeKey": "CTK001",
-            "CarrierType": "Jig",
-            "I_ProcessLot": "J000123475", "I_Site": 3015, "toJigSFC": [
+            "CARRIER_TYPE": "JIG",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+            "DESCRIPTION": "Jig",
+            "ProcessLot": "J000123475", "I_Site": 3015, "toJigSFC": [
                 { "RowNumber": 3, "SFC": "SFC00010218" },
                 { "RowNumber": 2, "SFC": "SFC00010219" },
                 { "RowNumber": 1, "SFC": "SFC00010220" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK002",
-            "CarrierType": "Stack",
-            "I_ProcessLot": "S000513488", "I_Site": 3015, "toStackSFC": [
+            "CARRIER_TYPE": "STACK",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,STACK",
+            "DESCRIPTION": "Stack",
+            "ProcessLot": "S000513488", "I_Site": 3015, "toStackSFC": [
                 { "RowNumber": 3, "SFC": "SFC00010300" },
                 { "RowNumber": 2, "SFC": "SFC00010301" },
                 { "RowNumber": 1, "SFC": "SFC00010302" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK002",
-            "CarrierType": "Stack",
-            "I_ProcessLot": "S000513489", "I_Site": 3015, "toStackSFC": [
+            "CARRIER_TYPE": "STACK",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,STACK",
+            "DESCRIPTION": "Stack",
+            "ProcessLot": "S000513489", "I_Site": 3015, "toStackSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010303" },
                 { "RowNumber": 3, "SFC": "SFC00010304" },
                 { "RowNumber": 2, "SFC": "SFC00010305" },
@@ -87,25 +96,28 @@
             ]
         },
         {
-            "CarrierTypeKey": "CTK002",
-            "CarrierType": "Stack",
-            "I_ProcessLot": "S000513491", "I_Site": 3015, "toStackSFC": [
+            "CARRIER_TYPE": "STACK",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,STACK",
+            "DESCRIPTION": "Stack",
+            "ProcessLot": "S000513491", "I_Site": 3015, "toStackSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010310" },
                 { "RowNumber": 2, "SFC": "SFC00010311" },
                 { "RowNumber": 3, "SFC": "SFC00010312" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK002",
-            "CarrierType": "Stack",
-            "I_ProcessLot": "S000513492", "I_Site": 3015, "toStackSFC": [
+            "CARRIER_TYPE": "STACK",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,STACK",
+            "DESCRIPTION": "Stack",
+            "ProcessLot": "S000513492", "I_Site": 3015, "toStackSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010313" }
             ]
         },
         {
-            "CarrierTypeKey": "CTK002",
-            "CarrierType": "Stack",
-            "I_ProcessLot": "S000513494", "I_Site": 3015, "toStackSFC": [
+            "CARRIER_TYPE": "STACK",
+            "CARRIER_TYPE_BO": "CarrierTypeBO:3015,STACK",
+            "DESCRIPTION": "Stack",
+            "ProcessLot": "S000513494", "I_Site": 3015, "toStackSFC": [
                 { "RowNumber": 1, "SFC": "SFC00010313" },
                 { "RowNumber": 2, "SFC": "SFC00010314" },
                 { "RowNumber": 3, "SFC": "SFC00010315" },

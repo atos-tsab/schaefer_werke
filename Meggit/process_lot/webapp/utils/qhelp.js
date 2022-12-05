@@ -13,11 +13,12 @@ sap.ui.define([
     "sap/ui/core/library",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel"
-], function (CoreLibrary, Controller, JSONModel) {
+], function (main, CoreLibrary, Controller, JSONModel) {
 
     "use strict";
 
     var ValueState = CoreLibrary.ValueState;
+    var _dataPath = "../model/data/";
 
     return {
 
@@ -25,13 +26,14 @@ sap.ui.define([
         // ---- Init
         // --------------------------------------------------------------------------------------------------------------------
 
-        onInit: function (ownerComponent) {
+        onInit: function (ownerComponent, mockData) {
             this.OwnerComponent = ownerComponent;
+            this.MockData = mockData;
 
             // ---- Setup the Ajax default connection parameter
             this.AjaxAsyncDefault = this.getResourceBundle().getText("AjaxAsyncDefault");
-            this.AjaxTypePost     = this.getResourceBundle().getText("AjaxTypePost");
-            this.AjaxTypeGet      = this.getResourceBundle().getText("AjaxTypeGet");
+            this.AjaxTypePost = this.getResourceBundle().getText("AjaxTypePost");
+            this.AjaxTypeGet = this.getResourceBundle().getText("AjaxTypeGet");
         },
 
 
@@ -39,7 +41,7 @@ sap.ui.define([
         // ---- Generic Functions
         // --------------------------------------------------------------------------------------------------------------------
 
-        onGetData: function (oEvent, app, prg, aData) {
+        onGetData: function (app, prg, aData, mockFile) {
             var errorMes = this.getResourceBundle().getText("errorText");
             var that = this;
 
@@ -48,13 +50,13 @@ sap.ui.define([
 
             try {
                 jQuery.ajax({
-                    url:   uri,
-                    type:  this.AjaxTypeGet,
+                    url: uri,
+                    type: this.AjaxTypeGet,
                     async: this.AjaxAsyncDefault,
-                    data:  aData,
+                    data: aData,
                     success: function (oData, oResponse) {
                         if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
-                            return oData;
+                            return oData.Rowsets.Rowset.Row;
                         } else {
                             that.showMessageError(oData.Rowsets.FatalError, "");
                         }
@@ -68,14 +70,14 @@ sap.ui.define([
             }
         },
 
-        onGetIntervalData: function (oEvent, app, prg, aData, interval) {
+        onGetIntervalData: function (app, prg, aData, interval) {
             var sDefaultInterval = parseInt(this.getResourceBundle().getText("DefaultInterval"), 10);
             var errorMes = this.getResourceBundle().getText("errorText");
             var that = this;
 
             if (interval !== null && interval !== undefined) {
                 if (this._isNumeric(interval)) {
-                	sDefaultInterval = interval;
+                    sDefaultInterval = interval;
                 }
             }
 
@@ -85,10 +87,10 @@ sap.ui.define([
             try {
                 setInterval(function () {
                     jQuery.ajax({
-                        url:   uri,
-                        type:  this.AjaxTypeGet,
+                        url: uri,
+                        type: this.AjaxTypeGet,
                         async: this.AjaxAsyncDefault,
-                        data:  aData,
+                        data: aData,
                         success: function (oData, oResponse) {
                             if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
                                 return oData;
@@ -106,7 +108,7 @@ sap.ui.define([
             }
         },
 
-        onPostData: function (oEvent, app, prg, aData) {
+        onPostData: function (app, prg, aData) {
             var errorMes = this.getResourceBundle().getText("errorText");
             var that = this;
 
@@ -135,7 +137,7 @@ sap.ui.define([
             }
         },
 
-        onPostDataWithReturnMes: function (oEvent, app, prg, aData, sErrorMes) {
+        onPostDataWithReturnMes: function (app, prg, aData, sErrorMes) {
             var errorMes = this.getResourceBundle().getText("errorText");
             var that = this;
 
@@ -170,16 +172,16 @@ sap.ui.define([
 
         _handleQueryUri: function (app, prg) {
             // ---- Get all the Connection parameter names from i18n file
-            var illuminator  = this.getResourceBundle().getText("XMiiIlluminator");
-            var qTempName    = this.getResourceBundle().getText("XMiiQueryTempName");
-            var qTemplate    = this.getResourceBundle().getText("XMiiQueryTemplate");
-            var qTempConst   = this.getResourceBundle().getText("XMiiQueryTempConst");
+            var illuminator = this.getResourceBundle().getText("XMiiIlluminator");
+            var qTempName = this.getResourceBundle().getText("XMiiQueryTempName");
+            var qTemplate = this.getResourceBundle().getText("XMiiQueryTemplate");
+            var qTempConst = this.getResourceBundle().getText("XMiiQueryTempConst");
             var qContTypeTxt = this.getResourceBundle().getText("XMiiQueryContentTypeText");
             var qContentType = this.getResourceBundle().getText("XMiiQueryContentType");
 
             // ---- Define the Uri string for the Ajax Query and return it
             var uri = "";
-                uri = "'" + illuminator + "?" + qTempName + "=" + qTemplate + "/" + app + "/" + qTempConst + "/" + prg + "&" + qContTypeTxt + "=" + qContentType + "'";
+            uri = "'" + illuminator + "?" + qTempName + "=" + qTemplate + "/" + app + "/" + qTempConst + "/" + prg + "&" + qContTypeTxt + "=" + qContentType + "'";
 
             return uri;
         },
@@ -215,17 +217,17 @@ sap.ui.define([
             }
         },
 
-		_isNumeric: function (num) {
-			if (typeof(num) === "number" && !isNaN(num)) {
-				return true;
-			} else if (typeof(num) === "string" && isNaN(num)) {
-				return false;
-			} else if (num.trim() === undefined && num.trim() === "") {
-				return false;
-			} else{
-				return false;
-			}
-		},
+        _isNumeric: function (num) {
+            if (typeof (num) === "number" && !isNaN(num)) {
+                return true;
+            } else if (typeof (num) === "string" && isNaN(num)) {
+                return false;
+            } else if (num.trim() === undefined && num.trim() === "") {
+                return false;
+            } else {
+                return false;
+            }
+        },
 
         _isObject: function (obj) {
             return obj instanceof Object && obj.constructor === Object;
@@ -287,6 +289,61 @@ sap.ui.define([
 
         getResourceBundle: function (ownerComponent) {
             return this.OwnerComponent.getModel("i18n").getResourceBundle();
+        },
+
+        _parseXmlToJson: function (xml) {
+            // ---- Changes XML to JSON
+            var that = this;
+            var obj = {};
+
+            if (xml.nodeType == 1) {
+                // ---- Element
+                // ---- Do attributes
+                if (xml.attributes.length > 0) {
+                    obj["@attributes"] = {};
+
+                    for (var j = 0; j < xml.attributes.length; j++) {
+                        var attribute = xml.attributes.item(j);
+
+                        obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+                    }
+                }
+            } else if (xml.nodeType == 3) {
+                // ---- Text
+                obj = xml.nodeValue;
+            }
+
+            // ---- Do children
+            // ---- If all text nodes inside, get concatenated text from them.
+            var textNodes = [].slice.call(xml.childNodes).filter(function (node) {
+                return node.nodeType === 3;
+            });
+
+            if (xml.hasChildNodes() && xml.childNodes.length === textNodes.length) {
+                obj = [].slice.call(xml.childNodes).reduce(function (text, node) {
+                    return text + node.nodeValue;
+                }, "");
+            } else if (xml.hasChildNodes()) {
+                for (var i = 0; i < xml.childNodes.length; i++) {
+                    var item = xml.childNodes.item(i);
+                    var nodeName = item.nodeName;
+
+                    if (typeof obj[nodeName] == "undefined") {
+                        obj[nodeName] = that._parseXmlToJson(item);
+                    } else {
+                        if (typeof obj[nodeName].push == "undefined") {
+                            var old = obj[nodeName];
+
+                            obj[nodeName] = [];
+                            obj[nodeName].push(old);
+                        }
+
+                        obj[nodeName].push(that._parseXmlToJson(item));
+                    }
+                }
+            }
+
+            return obj;
         },
 
 

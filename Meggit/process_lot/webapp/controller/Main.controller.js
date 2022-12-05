@@ -9,29 +9,30 @@
  ************************************************************************/
 
 
- sap.ui.define([
+sap.ui.define([
 	"processlot/controller/BaseController",
 	"processlot/model/formatter",
-    "processlot/utils/eams",
-    "processlot/utils/qhelp",
+	"processlot/utils/tools",
+	"processlot/utils/qhelp",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter"
-], function (BaseController, formatter, eams, qhelp, JSONModel, Filter) {
- 
-    "use strict";
+], function (BaseController, formatter, tools, qhelp, JSONModel, Filter) {
+
+	"use strict";
 
 	// ---- The app namespace is to be define here!
 	var _fragmentPath = "processlot.view.fragments.";
+	var _dataPath = "../model/data/";
 	var APP = "processlot";
 
 
-    return BaseController.extend("processlot.controller.Main", {
+	return BaseController.extend("processlot.controller.Main", {
 		// ---- Implementation of formatter functions
 		formatter: formatter,
 
 		// ---- Implementation of an utility toolset for generic use
-        eams : eams,
-        qhelp: qhelp,
+		tools: tools,
+		qhelp: qhelp,
 
 
 		// --------------------------------------------------------------------------------------------------------------------
@@ -48,13 +49,15 @@
 			// ---- Define variables for the License View
 			this.oView = this.getView();
 
-			this.CarrierType  = "";
-			this.SelectedSFC  = "";
+			this.CarrierType = "";
+			this.SelectedSFC = "";
 			this.NewCarrierId = "";
+			this.DummyData = false;
+			this.MockData = true;
 
 			// ---- Define the Owner Component for the Tools Util
-			eams.onInit(this.getOwnerComponent());
-			qhelp.onInit(this.getOwnerComponent());
+			tools.onInit(this.getOwnerComponent());
+			qhelp.onInit(this.getOwnerComponent(), this.MockData);
 
 			// ---- Define the Smart components
 			this.mTable = this.byId("idTableSFCLot");
@@ -69,9 +72,9 @@
 
 			// ---- Set Jason Models.
 			this.CarrierTypeModel = new JSONModel();
-			this.CarrierIdModel   = new JSONModel();
-			this.SFCTableModel    = new JSONModel();
-			this.SFCModel         = new JSONModel();
+			this.CarrierIdModel = new JSONModel();
+			this.SFCTableModel = new JSONModel();
+			this.SFCModel = new JSONModel();
 		},
 
 		_initLocalRouting: function () {
@@ -97,17 +100,11 @@
 			// ---- Get the Uri Parameter for the Carrier Type
 			var ctype = qhelp.getUriParameterCType("CARRIER_TYPE");
 
-			if (ctype) {
-				this._setCarrierTypeData(ctype);
-			} else {
-				this._setCarrierTypeData("");
-			}
-			
-			this._resetAll();			
+			// ---- Reset all relevant buttons and combo boxes
+			this._resetAll();
+			this._setCarrierTypeData(ctype);
 			this._setSFCNumberData();
 			this._createTableData();
-
-			// qhelp.onGetIntervalData("", APP, "XAC_GetRoboOrdrStatus", {}, 50000);
 		},
 
 
@@ -123,7 +120,7 @@
 			if (oEvent !== null && oEvent !== undefined) {
 				if (oEvent.getSource() !== null && oEvent.getSource() !== undefined) {
 					var sValue = this.SelectedSFC;
-			
+
 					if (sValue !== null && sValue !== undefined && sValue !== "") {
 						var data = this.SFCTableModel.getData().SFCCollection;
 
@@ -139,8 +136,8 @@
 							let item = data[j];
 
 							if (item.Position === lastPos) {
-								item.SFC        = sValue;
-								item.Selection  = true;
+								item.SFC = sValue;
+								item.Selection = true;
 								item.VisibleSel = true;
 
 								this.byId("idButtonRemoveAll").setEnabled(true);
@@ -163,7 +160,7 @@
 			if (oEvent !== null && oEvent !== undefined) {
 				if (oEvent.getSource() !== null && oEvent.getSource() !== undefined) {
 					var sValue = sfcNumber;
-			
+
 					if (sValue !== null && sValue !== undefined && sValue !== "") {
 						var data = this.SFCTableModel.getData().SFCCollection;
 
@@ -172,11 +169,11 @@
 							let item = data[j];
 
 							if (item.Position === pos) {
-								item.SFC        = "";
-								item.Selection  = false;
+								item.SFC = "";
+								item.Selection = false;
 								item.VisibleSel = false;
 							} else if (item.Position === (pos - 1)) {
-								item.Selection  = true;
+								item.Selection = true;
 							}
 						}
 
@@ -217,13 +214,13 @@
 					var sValue = source.getValue();
 
 					if (sValue === "Jig") {
-						this._setCarrierIdDataJig();
 						this._resetByCarrierType();
 						this.CarrierType = sValue;
+						this._setCarrierIdData(sValue);
 					} else if (sValue === "Stack") {
-						this._setCarrierIdDataStack();
 						this._resetByCarrierType();
 						this.CarrierType = sValue;
+						this._setCarrierIdData(sValue);
 					} else {
 						this.CarrierIdModel.setData([]);
 						this.CarrierType = "";
@@ -239,17 +236,17 @@
 
 		onCreateCarrierId: function () {
 			var oData = this.CarrierIdModel.getData().Collection;
-				oData.push(this.NewCarrierId);
+			oData.push(this.NewCarrierId);
 
 			this.CarrierIdModel.setData({
 				"Collection": oData
 			});
-	
+
 			// ---- Find the last added Position
 			var data = this.SFCTableModel.getData().SFCCollection;
 			var lastPos = this._findLastPosition(data) - 1;
 			var that = this;
-	
+
 			if (lastPos > 0) {
 				// ---- Create a new Carrierd dataset
 				this._createCarrierIdSet(this.CarrierType, this.NewCarrierId, data);
@@ -263,7 +260,7 @@
 					that.byId("idButtonCreateTable").setEnabled(false);
 					that.byId("idInputCarrierId").setValue("");
 					that._createTableData();
-				}.bind(this), 4000);
+				}.bind(this), 3000);
 			} else {
 				qhelp.alertMe("Add one or more SFC numbers!");
 			}
@@ -277,25 +274,27 @@
 
 			if (carrierType === "Jig") {
 				mData = {
-					"CarrierTypeKey": "CTK001",
-					"CarrierType": "Jig",
-					"I_ProcessLot": newCarrierId.I_ProcessLot, 
+					"CARRIER_TYPE":    "JIG",
+					"CARRIER_TYPE_BO": "CarrierTypeBO:3015,JIG",
+					"DESCRIPTION":     "Jig",
+					"ProcessLot": newCarrierId.ProcessLot,
 					"I_Site": 3015,
 					"toStackSFC": []
 				};
 			} else if (carrierType === "Stack") {
 				mData = {
-					"CarrierTypeKey": "CTK002",
-					"CarrierType": "Stack",
-					"I_ProcessLot": newCarrierId.I_ProcessLot, 
+					"CARRIER_TYPE":    "STACK",
+					"CARRIER_TYPE_BO": "CarrierTypeBO:3015,STACK",
+					"DESCRIPTION":     "Stack",
+					"ProcessLot": newCarrierId.ProcessLot,
 					"I_Site": 3015,
 					"toStackSFC": []
 				};
 			}
-			
+
 			// ---- Find last added Position
 			var lastPos = this._findLastPosition(sfcData) - 1;
-			var maxPos  = lastPos;
+			var maxPos = lastPos;
 
 			// ---- Add the last open Position
 			for (let j = 0; j < sfcData.length; j++) {
@@ -304,7 +303,7 @@
 				if (item.Position === lastPos) {
 					sData = {
 						"RowNumber": item.Position,
-						"SFC":       item.SFC
+						"SFC": item.SFC
 					};
 
 					mData.toStackSFC.push(sData);
@@ -319,7 +318,7 @@
 					this._resetBySelection();
 				}
 			}
-			
+
 			cData.results.push(mData);
 		},
 
@@ -327,7 +326,7 @@
 			// ---- Remove entries from the SFC list
 			var sfcModel = this.getOwnerComponent().getModel("sfcData");
 			var mData = sfcModel.getData().results;
-			
+
 			// ---- Add the last open Position
 			for (let j = 0; j < mData.length; j++) {
 				let item = mData[j];
@@ -348,15 +347,15 @@
 				if (oEvent.getSource() !== null && oEvent.getSource() !== undefined) {
 					var source = oEvent.getSource();
 					var sValue = source.getValue();
-			
+
 					if (sValue !== null && sValue !== undefined && sValue !== "") {
 						var oData = this.CarrierIdModel.getData().Collection;
 						var check = this._checkCarrierId(oData, sValue);
 
 						if (!check) {
-							var data = { I_ProcessLot: sValue };
+							var data = { ProcessLot: sValue };
 
-							this.NewCarrierId = data;					
+							this.NewCarrierId = data;
 							this._removeTableData();
 							this._resetButtons();
 							this.byId("idButtonCreateTable").setEnabled(true);
@@ -364,7 +363,7 @@
 					} else {
 						source.setSelectedKey(undefined);
 						source.setValue("");
-					
+
 						this._removeTableData();
 						this._resetButtons();
 					}
@@ -377,7 +376,7 @@
 				if (oEvent.getSource() !== null && oEvent.getSource() !== undefined) {
 					var source = oEvent.getSource();
 					var sValue = source.getValue();
-			
+
 					if (sValue !== null && sValue !== undefined && sValue !== "") {
 						this.byId("idButtonAddSFC").setEnabled(true);
 
@@ -397,11 +396,12 @@
 
 		_setCarrierTypeData: function (ctype) {
 			var cidModel = this.getOwnerComponent().getModel("cidData");
-			var id = this.byId("idComboBoxCarrierType");
-			var mData = { results:[] };
+			var xmlFile = _dataPath + "GetCarrierType.xml";
+			var that = this;
 			var entry = "";
+			var cData = {};
 
-			if (ctype === "JIG") { 
+			if (ctype === "JIG") {
 				entry = "Jig";
 			} else if (ctype === "STACK") {
 				entry = "Stack";
@@ -410,24 +410,54 @@
 			this.CarrierType = entry;
 			this._setCarrierIdData();
 
-			// ---- Set Data model for the selected Carrier Type
-			if (cidModel !== null && cidModel !== undefined) {
-				var cData = cidModel.getData().results;
+			if (this.MockData) {
+				if (this.DummyData) {
+					cidModel = this.getOwnerComponent().getModel("cidData");
+					cData = cidModel.getData().results;
+
+					// ---- Set Data model for the selected Carrier Type
+					this._loadCarrierTypeComboBox(cData, entry);
+				} else {
+					this._onLoadXmlData(xmlFile).then((data) => {
+						// ---- Set Data model for the selected Carrier Type
+						that._loadCarrierTypeComboBox(data, entry);
+					})
+					.catch((error) => {
+						qhelp.showMessageError(errorMes);
+					})
+				}
+			} else {
+				// onGetData: (app, taction, aData{Site, carrierType})
+				this.onGetData("Build_Module", "SQL_GetCarrierType", "").then((data) => {
+					// ---- Set Data model for the selected Carrier Type
+					that._loadCarrierTypeComboBox(data, entry);
+				})
+				.catch((error) => {
+					qhelp.showMessageError(errorMes);
+				})
+			}
+		},
+
+		_loadCarrierTypeComboBox: function (cData, entry) {
+			var id = this.byId("idComboBoxCarrierType");
+			var mData = { results: [] };
+
+			if (cData !== null && cData !== undefined) {
 				var stackCount = 0;
-				var jigCount   = 0;
+				var jigCount = 0;
 
 				for (let i = 0; i < cData.length; i++) {
 					var item = cData[i];
 					var xData = {
-							"CarrierTypeKey": item.CarrierTypeKey,
-							"CarrierType":    item.CarrierType
-						};
+						"CarrierTypeKey": item.CARRIER_TYPE_BO,
+						"CarrierType": item.DESCRIPTION
+					};
 
-					if (item.CarrierType === "Jig" && jigCount < 1) {
+					if (item.DESCRIPTION === "Jig" && jigCount < 1) {
 						mData.results.push(xData);
 
 						jigCount = jigCount + 1;
-					} else if (item.CarrierType === "Stack" && stackCount < 1) {
+					} else if (item.DESCRIPTION === "Stack" && stackCount < 1) {
 						mData.results.push(xData);
 
 						stackCount = stackCount + 1;
@@ -437,73 +467,186 @@
 
 			// ---- Create a ComboBox binding oModels.undefined.oData.CarrierTypeCollection[1].CarrierType
 			// ---- onSetComboBoxDataWithSelection: (Jason Model, ComboBox ID, mData, Collection,          Key,              Name,          Additional Text, Sort Parameter, Param,      Entry, show Additional Text)
-			eams.onSetComboBoxDataWithSelection(this.CarrierTypeModel, id, mData, "CarrierTypeCollection", "CarrierTypeKey", "CarrierType", "CarrierTypeKey", "CarrierType", "CarrierType", entry, true);
+			tools.onSetComboBoxDataWithSelection(this.CarrierTypeModel, id, mData, "CarrierTypeCollection", "CarrierTypeKey", "CarrierType", "CarrierTypeKey", "CarrierType", "CarrierType", entry, true);
 		},
 
 		_setCarrierIdData: function () {
 			var cidModel = this.getOwnerComponent().getModel("cidData");
+			var xmlFile  = _dataPath + "GetProcessLotByCarrierType.xml";
+			var that  = this;
+			var cData = {};
+
+			if (this.MockData) {
+				if (this.DummyData) {
+					cidModel = this.getOwnerComponent().getModel("cidData");
+					cData = cidModel.getData().results;
+
+					// ---- Set Data model for the selected Carrier Type
+					this._loadCarrierIdComboBox(cData);
+				} else {
+					// ---- Initialize the model with the JSON file
+					this._onLoadXmlData(xmlFile).then((data) => {
+						// ---- Set Data model for the selected Carrier Type
+						that._loadCarrierIdComboBox(data);
+					})
+					.catch((error) => {
+						qhelp.showMessageError(errorMes);
+					})
+				}
+			} else {
+				// onGetData: (app, taction, aData{Site, carrierType})
+				this.onGetData("Build_Module", "XAC_GetProcessLotByCarrierType", { "Site": 3015, "carrierType": this.CarrierType }).then((data) => {
+					// ---- Set Data model for the selected Carrier Type
+					that._loadCarrierIdComboBox(data);
+				})
+				.catch((error) => {
+					qhelp.showMessageError(errorMes);
+				})
+			}
+		},
+
+		_loadCarrierIdComboBox: function (cData) {
 			var id = this.byId("idComboBoxCarrierId");
+			var mData = { results: [] };
 			var that = this;
 
-			// ---- Set Data model for the selected Carrier Type
-			if (cidModel !== null && cidModel !== undefined) {
-				var cData = cidModel.getData().results;
-				var mData = { results:[] };
+			if (cData !== null && cData !== undefined) {
+				// ---- Set Data model for the selected Carrier Type
+				var mData = { results: [] };
 
 				for (let i = 0; i < cData.length; i++) {
 					var item = cData[i];
-					
-					if (item.CarrierType === that.CarrierType) {
-						var xData = {I_ProcessLot: item.I_ProcessLot};
+
+					if (this.DummyData) {
+						if (item.DESCRIPTION === that.CarrierType) {
+							var xData = { ProcessLot: item.ProcessLot };
+
+							mData.results.push(xData);
+						}
+					} else {
+						if (item) {
+							// var carrierType = tools.splitStringIntoArray(item.CARRIER_TYPE_BO, ",")[1];
+
+							// if (carrierType === that.CarrierType.toUpperCase()) {
+							var xData = { ProcessLot: item.ProcessLot };
+
+							mData.results.push(xData);
+							// }
+						}
+					}
+				}
+
+				this.mData = mData;
+			}
+
+			// ---- Create a ComboBox binding
+			// ---- onSetComboBoxData: (Jason Model, ComboBox ID, mData, Collection, Key, Name, Additional Text, Sort Parameter, show Additional Text)
+			tools.onSetComboBoxData(this.CarrierIdModel, id, mData, "Collection", "ProcessLot", "ProcessLot", "", "ProcessLot", false);
+		},
+
+		_setSFCNumberData: function () {
+			var sfcModel = this.getOwnerComponent().getModel("sfcData");
+			var xmlFile  = _dataPath + "BrowseForSFCByResource.xml";
+			var that  = this;
+			var cData = {};
+
+			if (this.MockData) {
+				if (this.DummyData) {
+					sfcModel = this.getOwnerComponent().getModel("sfcData");
+					cData = sfcModel.getData().results;
+
+					// ---- Set Data model for the selected Carrier Type
+					this._loadSFCNumberComboBox(cData);
+				} else {
+					this._onLoadXmlData(xmlFile).then((data) => {
+						// ---- Set Data model for the selected Carrier Type
+						that._loadSFCNumberComboBox(data);
+					})
+					.catch((error) => {
+						qhelp.showMessageError(errorMes);
+					})
+				}
+			} else {
+				// onGetData: (app, taction, aData{Site, carrierType})
+				this.onGetData("Build_Module", "XAC_BrowseForSFCByResource", { "Site": 3015, "carrierType": this.CarrierType }).then((data) => {
+					// ---- Set Data model for the selected Carrier Type
+					that._loadSFCNumberComboBox(data);
+				})
+				.catch((error) => {
+					qhelp.showMessageError(errorMes);
+				})
+			}
+		},
+
+		_loadSFCNumberComboBox: function (cData) {
+			var id = this.byId("idComboBoxSFC");
+			var mData = { results: [] };
+
+			if (cData !== null && cData !== undefined) {
+				// ---- Set Data model for the selected Carrier Type
+				var mData = { results: [] };
+
+				for (let i = 0; i < cData.length; i++) {
+					var item = cData[i];
+
+					if (item) {
+						var xData = { SFC: item.SFC };
 
 						mData.results.push(xData);
 					}
 				}
 			}
-			
-			this.mData = mData;
 
 			// ---- Create a ComboBox binding
 			// ---- onSetComboBoxData: (Jason Model, ComboBox ID, mData, Collection, Key, Name, Additional Text, Sort Parameter, show Additional Text)
-			eams.onSetComboBoxData(this.CarrierIdModel, id, mData, "Collection", "", "I_ProcessLot", "", "I_ProcessLot",false);
-		},
-
-		_setSFCNumberData: function () {
-			var sfcModel = this.getOwnerComponent().getModel("sfcData");
-			var id = this.byId("idComboBoxSFC");
-			var mData = sfcModel.getData();
-
-			// ---- Create a ComboBox binding
-			// ---- onSetComboBoxData: (Jason Model, ComboBox ID, mData, Collection, Key, Name, Additional Text, Sort Parameter, show Additional Text)
-			eams.onSetComboBoxData(this.SFCModel, id, mData, "SFCCollection", "SFC", "SFC", "SFC", "SFC", false);
+			tools.onSetComboBoxData(this.SFCModel, id, mData, "SFCCollection", "SFC", "SFC", "SFC", "SFC", false);
 		},
 
 		_fillCarrierIdList: function (carrierId) {
 			var cidModel = this.getOwnerComponent().getModel("cidData");
+			var xmlFile  = _dataPath + "GetProcessLotMembers.xml";
 			var that = this;
 
 			// ---- Set Data model for the selected Carrier Type
-			if (cidModel !== null && cidModel !== undefined) {
-				var cData = cidModel.getData().results;
-				var mData = { results:[] };
+			if (this.DummyData) {
+				if (cidModel !== null && cidModel !== undefined) {
+					var cData = cidModel.getData().results;
+					var mData = { results: [] };
 
-				for (let i = 0; i < cData.length; i++) {
-					var item = cData[i];
-					
-					if (item.CarrierType === that.CarrierType) {
-						if (item.I_ProcessLot === carrierId) {
-							if (item.CarrierType === "Jig") {
-								mData.results = item.toJigSFC;
-							} else if (item.CarrierType === "Stack") {
-								mData.results = item.toStackSFC;
-							}						
+					for (let i = 0; i < cData.length; i++) {
+						var item = cData[i];
+
+						if (item.DESCRIPTION === that.CarrierType) {
+							if (item.ProcessLot === carrierId) {
+								if (item.DESCRIPTION === "Jig") {
+									mData.results = item.toJigSFC;
+								} else if (item.DESCRIPTION === "Stack") {
+									mData.results = item.toStackSFC;
+								}
+							}
 						}
 					}
 				}
-
-				// ---- Add data to SFC Table
-				this._autoFillSFCList(mData.results);
-			}			
+			} else {
+				if (this.MockData) {
+					this._onLoadXmlData(xmlFile).then((data) => {
+						// ---- Add data to SFC Table
+						that._autoFillSFCList(data);
+					})
+					.catch((error) => {
+						qhelp.showMessageError(errorMes);
+					})
+				} else {
+					// onGetData: (app, taction, aData{ProcessLot, Site})
+					this.onGetData("Build_Module", "XAC_GetProcessLotMembers", { "ProcessLot": carrierId, "Site": 3015 }).then((data) => {
+						// ---- Add data to SFC Table
+						that._autoFillSFCList(data);
+					})
+					.catch((error) => {
+						qhelp.showMessageError(errorMes);
+					})
+				}
+			}
 		},
 
 		_autoFillSFCList: function (mData) {
@@ -523,37 +666,113 @@
 			// ---- Add data to SFC Table
 			for (let i = 0; i < mData.length; i++) {
 				var sValue = mData[i].SFC;
-				
+
 				if (sValue !== null && sValue !== undefined && sValue !== "") {
 					var data = this.SFCTableModel.getData().SFCCollection;
 
 					this.byId("idButtonRemoveAll").setEnabled(false);
 					this.byId("idButtonCompleteAll").setEnabled(false);
 					this.byId("idButtonAddSFC").setEnabled(false);
-	
+
 					// ---- Find last added Position
 					var lastPos = this._findLastPosition(data);
-	
+
 					// ---- Add the last open Position
 					for (let j = 0; j < data.length; j++) {
 						let item = data[j];
-	
+
 						if (item.Position === lastPos) {
-							item.SFC        = sValue;
-							item.Selection  = true;
+							item.SFC = sValue;
+							item.Selection = true;
 							item.VisibleSel = true;
-	
+
 							this.byId("idButtonRemoveAll").setEnabled(true);
 							this.byId("idButtonCompleteAll").setEnabled(true);
 						}
 					}
-	
+
 					this.byId("idComboBoxSFC").setSelectedKey(undefined);
 					this.SFCTableModel.setData({ SFCCollection: data });
 					this.mTable.setModel(this.SFCTableModel);
 					this.SelectedSFC = "";
 				}
-			}			
+			}
+		},
+
+
+		// --------------------------------------------------------------------------------------------------------------------
+		// ---- Ajax Functions
+		// --------------------------------------------------------------------------------------------------------------------
+
+		onGetData: function (app, prg, aData) {
+			var errorMes = this.getResourceBundle().getText("errorText");
+			var that = this;
+
+			// ---- Get Uri connection string
+			var uri = qhelp._handleQueryUri(app, prg);
+
+			return new Promise((resolve, reject) => {
+				try {
+					jQuery.ajax({
+						url: ri,
+						type: this.AjaxTypeGet,
+						async: this.AjaxAsyncDefault,
+						data: aData,
+						success: function (oData, oResponse) {
+							if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
+								var data = oData.Rowsets.Rowset.Row;
+
+								resolve(data);
+							} else {
+								qhelp.showMessageError(oData.Rowsets.FatalError, "");
+							}
+						},
+						error: function (oError, oResp) {
+							reject(oError);
+						}
+					});
+				} catch (error) {
+					qhelp.showMessageError(errorMes);
+				}
+			});
+		},
+
+		_onLoadXmlData: function (xmlFile) {
+			var errorMes = this.getResourceBundle().getText("errorText");
+			var that = this;
+
+			return new Promise((resolve, reject) => {
+				try {
+					// ---- Initialize the model with the JSON file
+					var oModel = new sap.ui.model.xml.XMLModel();
+					oModel.loadData(xmlFile);
+					oModel.attachRequestCompleted(function (oEventModel) {
+						if (oEventModel !== null && oEventModel !== undefined) {
+							var success = oEventModel.getParameter("success");
+
+							// ---- Convert XML Data to JASON
+							var xmlStr = oModel.getXML();
+							var xmlDOM = new DOMParser().parseFromString(xmlStr, 'text/xml');
+							var mData = qhelp._parseXmlToJson(xmlDOM);
+
+							// ---- Create a ComboBox binding
+							if (success) {
+								if (mData.Rowsets.Rowset !== null && mData.Rowsets.Rowset !== undefined) {
+									if (mData.Rowsets.Rowset.Row.length > 0) {
+										var data = mData.Rowsets.Rowset.Row;
+
+										resolve(data);
+									}
+								} else {
+									qhelp.showMessageError(mData.Rowsets.FatalError, "");
+								}
+							}
+						}
+					});
+				} catch (error) {
+					qhelp.showMessageError(errorMes);
+				}
+			});
 		},
 
 
@@ -570,23 +789,23 @@
 				this.CarrierIdModel.setData({
 					"Collection": this.mData.results
 				});
-	
+
 				// ---- Create the Value help dialog
 				if (!this._valueHelpDialog) {
-					this._valueHelpDialog = sap.ui.xmlfragment( _fragmentPath + "DialogCarrierId", this );
-	
+					this._valueHelpDialog = sap.ui.xmlfragment(_fragmentPath + "DialogCarrierId", this);
+
 					this._valueHelpDialog.setModel(this.CarrierIdModel);
 					this._valueHelpDialog.setTitle(title);
-	
+
 					this.getView().addDependent(this._valueHelpDialog);
 				}
-	
+
 				// ---- Open Value help dialog
 				this._valueHelpDialog.open();
 			}
 		},
 
-		_handleValueHelpSearch : function (oEvent, param) {
+		_handleValueHelpSearch: function (oEvent, param) {
 			if (oEvent !== null & oEvent !== undefined) {
 				if (oEvent.getParameter("value") !== null & oEvent.getParameter("value") !== undefined) {
 					var sValue = oEvent.getParameter("value");
@@ -600,7 +819,7 @@
 			}
 		},
 
-		_handleValueHelpClose : function (oEvent) {
+		_handleValueHelpClose: function (oEvent) {
 			if (oEvent !== null & oEvent !== undefined) {
 				if (oEvent.getParameter("selectedItem") !== null & oEvent.getParameter("selectedItem") !== undefined) {
 					var source = oEvent.getSource();
@@ -608,7 +827,7 @@
 
 					if (sValue !== null && sValue !== undefined && sValue !== "") {
 						var carrierIdInput = this.byId(this.CarrierIdInput);
-							carrierIdInput.setValue(sValue.getTitle());
+						carrierIdInput.setValue(sValue.getTitle());
 
 						// ---- Fill the SFC Numbers for the selected Carrier ID
 						this._fillCarrierIdList(sValue.getTitle());
@@ -633,17 +852,17 @@
 		_createTableData: function () {
 			var scrollPositions = this._getMaxPosition()[0];
 			var maxPositions = this._getMaxPosition()[1];
-			var that= this;
+			var that = this;
 			var data = [];
-			
+
 			for (let index = maxPositions; index > 0; index--) {
 				var item = {
-					Position:   index,
-					SFC:        "",
-					Selection:  false,
+					Position: index,
+					SFC: "",
+					Selection: false,
 					VisibleSel: false
 				};
-				
+
 				data.push(item);
 			}
 
@@ -653,9 +872,9 @@
 
 			this.mTable.setModel(this.SFCTableModel);
 
-			setTimeout(function() {
+			setTimeout(function () {
 				that.byId("idScrollContainerSFC").scrollTo(0, scrollPositions, 0);
-			}, 500);				
+			}, 500);
 		},
 
 		_removeTableData: function () {
@@ -679,12 +898,12 @@
 					});
 				}
 			} else {
-                eams.alertMe("Navigate back or close the browser window!");
+				tools.alertMe("Navigate back or close the browser window!");
 
-				setTimeout(function() {
+				setTimeout(function () {
 					window.close()
-				}, 3000);				
-            }
+				}, 3000);
+			}
 		},
 
 
@@ -699,8 +918,8 @@
 			if (oData !== null && oData !== undefined) {
 				for (var i = 0; i < oData.length; i++) {
 					var id = oData[i].I_ProcessLot;
-					
-					if (id === sValue) {						
+
+					if (id === sValue) {
 						check = true;
 						break;
 					}
@@ -733,7 +952,7 @@
 
 			for (let index = 0; index < data.length; index++) {
 				let item = data[index];
-					item.Selection = false;
+				item.Selection = false;
 
 				if (item.SFC !== "") {
 					lastPos = item.Position;
