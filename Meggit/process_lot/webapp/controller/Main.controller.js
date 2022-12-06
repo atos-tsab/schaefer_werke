@@ -52,8 +52,13 @@ sap.ui.define([
 			this.CarrierType = "";
 			this.SelectedSFC = "";
 			this.NewCarrierId = "";
-			this.DummyData = false;
+			this.DummyData = true;
 			this.MockData = true;
+
+            // ---- Setup the Ajax default connection parameter
+            this.AjaxAsyncDefault = this.getResourceBundle().getText("AjaxAsyncDefault");
+            this.AjaxTypePost = this.getResourceBundle().getText("AjaxTypePost");
+            this.AjaxTypeGet = this.getResourceBundle().getText("AjaxTypeGet");
 
 			// ---- Define the Owner Component for the Tools Util
 			tools.onInit(this.getOwnerComponent());
@@ -405,6 +410,8 @@ sap.ui.define([
 				entry = "Jig";
 			} else if (ctype === "STACK") {
 				entry = "Stack";
+			} else {
+				entry = "Jig";
 			}
 
 			this.CarrierType = entry;
@@ -428,13 +435,15 @@ sap.ui.define([
 				}
 			} else {
 				// onGetData: (app, taction, aData{Site, carrierType})
-				this.onGetData("Build_Module", "SQL_GetCarrierType", "").then((data) => {
-					// ---- Set Data model for the selected Carrier Type
-					that._loadCarrierTypeComboBox(data, entry);
-				})
-				.catch((error) => {
-					qhelp.showMessageError(errorMes);
-				})
+				qhelp.onGetData("Build_Module", "SQL_GetCarrierType", "");
+
+				// this.onGetData("Build_Module", "SQL_GetCarrierType", "").then((data) => {
+				// 	// ---- Set Data model for the selected Carrier Type
+				// 	that._loadCarrierTypeComboBox(data, entry);
+				// })
+				// .catch((error) => {
+				// 	qhelp.showMessageError(errorMes);
+				// })
 			}
 		},
 
@@ -611,7 +620,7 @@ sap.ui.define([
 			if (this.DummyData) {
 				if (cidModel !== null && cidModel !== undefined) {
 					var cData = cidModel.getData().results;
-					var mData = { results: [] };
+					var data  = { results: [] };
 
 					for (let i = 0; i < cData.length; i++) {
 						var item = cData[i];
@@ -619,14 +628,17 @@ sap.ui.define([
 						if (item.DESCRIPTION === that.CarrierType) {
 							if (item.ProcessLot === carrierId) {
 								if (item.DESCRIPTION === "Jig") {
-									mData.results = item.toJigSFC;
+									data.results = item.toJigSFC;
 								} else if (item.DESCRIPTION === "Stack") {
-									mData.results = item.toStackSFC;
+									data.results = item.toStackSFC;
 								}
 							}
 						}
 					}
 				}
+
+				// ---- Add data to SFC Table
+				this._autoFillSFCList(data.results);
 			} else {
 				if (this.MockData) {
 					this._onLoadXmlData(xmlFile).then((data) => {
@@ -656,12 +668,12 @@ sap.ui.define([
 			this._removeTableData();
 
 			// ---- Sort of String fields
-			mData.sort(function (a, b) {
-				var numA = a.RowNumber.toString();
-				var numB = b.RowNumber.toString();
+			// mData.sort(function (a, b) {
+			// 	var numA = a.RowNumber.toString();
+			// 	var numB = b.RowNumber.toString();
 
-				return numA.localeCompare(numB);
-			});
+			// 	return numA.localeCompare(numB);
+			// });
 
 			// ---- Add data to SFC Table
 			for (let i = 0; i < mData.length; i++) {
@@ -714,9 +726,9 @@ sap.ui.define([
 			return new Promise((resolve, reject) => {
 				try {
 					jQuery.ajax({
-						url: ri,
-						type: this.AjaxTypeGet,
-						async: this.AjaxAsyncDefault,
+						url: uri,
+						type: that.AjaxTypeGet,
+						async: that.AjaxAsyncDefault,
 						data: aData,
 						success: function (oData, oResponse) {
 							if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
@@ -745,30 +757,30 @@ sap.ui.define([
 				try {
 					// ---- Initialize the model with the JSON file
 					var oModel = new sap.ui.model.xml.XMLModel();
-					oModel.loadData(xmlFile);
-					oModel.attachRequestCompleted(function (oEventModel) {
-						if (oEventModel !== null && oEventModel !== undefined) {
-							var success = oEventModel.getParameter("success");
+						oModel.loadData(xmlFile);
+						oModel.attachRequestCompleted(function (oEventModel) {
+							if (oEventModel !== null && oEventModel !== undefined) {
+								var success = oEventModel.getParameter("success");
 
-							// ---- Convert XML Data to JASON
-							var xmlStr = oModel.getXML();
-							var xmlDOM = new DOMParser().parseFromString(xmlStr, 'text/xml');
-							var mData = qhelp._parseXmlToJson(xmlDOM);
+								// ---- Convert XML Data to JASON
+								var xmlStr = oModel.getXML();
+								var xmlDOM = new DOMParser().parseFromString(xmlStr, 'text/xml');
+								var mData  = qhelp._parseXmlToJson(xmlDOM);
 
-							// ---- Create a ComboBox binding
-							if (success) {
-								if (mData.Rowsets.Rowset !== null && mData.Rowsets.Rowset !== undefined) {
-									if (mData.Rowsets.Rowset.Row.length > 0) {
-										var data = mData.Rowsets.Rowset.Row;
+								// ---- Create a ComboBox binding
+								if (success) {
+									if (mData.Rowsets.Rowset !== null && mData.Rowsets.Rowset !== undefined) {
+										if (mData.Rowsets.Rowset.Row.length > 0) {
+											var data = mData.Rowsets.Rowset.Row;
 
-										resolve(data);
+											resolve(data);
+										}
+									} else {
+										qhelp.showMessageError(mData.Rowsets.FatalError, "");
 									}
-								} else {
-									qhelp.showMessageError(mData.Rowsets.FatalError, "");
 								}
 							}
-						}
-					});
+						});
 				} catch (error) {
 					qhelp.showMessageError(errorMes);
 				}

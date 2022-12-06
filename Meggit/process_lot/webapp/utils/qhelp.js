@@ -51,8 +51,8 @@ sap.ui.define([
             try {
                 jQuery.ajax({
                     url: uri,
-                    type: this.AjaxTypeGet,
-                    async: this.AjaxAsyncDefault,
+                    type: that.AjaxTypeGet,
+                    async: that.AjaxAsyncDefault,
                     data: aData,
                     success: function (oData, oResponse) {
                         if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
@@ -88,8 +88,8 @@ sap.ui.define([
                 setInterval(function () {
                     jQuery.ajax({
                         url: uri,
-                        type: this.AjaxTypeGet,
-                        async: this.AjaxAsyncDefault,
+                        type: that.AjaxTypeGet,
+                        async: that.AjaxAsyncDefault,
                         data: aData,
                         success: function (oData, oResponse) {
                             if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
@@ -118,8 +118,8 @@ sap.ui.define([
             try {
                 jQuery.ajax({
                     url: uri,
-                    type: this.AjaxTypePost,
-                    async: this.AjaxAsyncDefault,
+                    type: that.AjaxTypePost,
+                    async: that.AjaxAsyncDefault,
                     data: aData,
                     success: function (oData, oResponse) {
                         if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
@@ -147,8 +147,8 @@ sap.ui.define([
             try {
                 jQuery.ajax({
                     url: uri,
-                    type: this.AjaxTypePost,
-                    async: this.AjaxAsyncDefault,
+                    type: that.AjaxTypePost,
+                    async: that.AjaxAsyncDefault,
                     data: aData,
                     success: function (oData, oResponse) {
                         if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
