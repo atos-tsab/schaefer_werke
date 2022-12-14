@@ -1,0 +1,496 @@
+@CHARSET "UTF-8";
+
+.sapUiTableHdr {
+    background-color: #ADC5DB !important;
+    background: none;
+    font-family: arial, helvetica, sans-serif !important;
+    line-height: 0.885;
+    min-height: 1.5rem !important;
+}
+
+.sapMTitle {
+    width: 100% !important;
+    height: 40px !important;
+    font-family: "72", "72full", Arial, Helvetica, sans-serif !important;
+    font-size: 1.125rem !important;
+    font-weight: bold !important;
+    font-style: italic;
+    word-wrap: break-word;
+    color: #32363a !important;
+    display: inline-flex !important;
+}
+
+.sapMPanel {
+    background-color: #DFEBF5 !important;
+    height: 15% !important;
+}
+
+.sapMBtnContent {
+    line-height: 1.55rem !important;
+}
+
+.sapMBarPH {
+    text-align: left !important;
+    font-family: arial, helvetica, sans-serif !important;
+    background-color: #DFEBF5 !important;
+    line-height: 1.5rem !important;
+    height: 2rem !important;
+}
+
+.sapMBar {
+    height: 2rem !important;
+}
+
+.sapMBtnInner {
+    height: 1.75rem !important;
+    border: 0rem !important;
+    background-color: #DFEBF5 !important;
+}
+
+.sapNdcBarcodeScannerDialog-btn_barcode_ok-inner {
+    background-color: #ffffff !important;
+}
+
+.sapMInputBase {
+    height: 1.25rem !important;
+    width: 100% !important;
+}
+
+.sapMBtn {
+    height: 5rem !important;
+}
+
+.sapMText {
+    font-family: "72", Arial, Helvetica, sans-serif;
+    font-size: 0.75em;
+    font-style: normal;
+    font-weight: normal !important;
+}
+
+.sapUiVltCell sapuiVltCell {
+    width: 8% !important;
+    padding-bottom: 0px !important;
+}
+
+.sapUiVlt {
+    display: flex !important;
+    justify-content: end !important;
+}
+
+.sapUiVlt.sapUiContentPadding {
+    box-sizing: content-box !important;
+    padding: 0rem !important;
+}
+
+.sapMPage>.sapMPageSubHeader {
+    padding-left: 10px !important;
+    padding-top: 10px !important;
+}
+
+.sapMInputBaseIcon {
+    color: #0854a0;
+    font-size: large;
+    line-height: 1.125rem !important;
+}
+
+.sapUiTableCell.sapUiTableHeaderCell {
+    text-align-last: justify;
+}
+
+.sapUiTableContentRow {
+    height: 21px !important;
+}
+
+.sapUiTableCell.sapUiTableContentCell.sapUiTableRowSelectionCell {
+    height: 21px !important;
+}
+
+.sapMLabel.sapUiSelectable.sapUiTableHdrTitle {
+    font-family: "72", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    white-space: nowrap;
+    line-height: normal;
+    vertical-align: middle;
+    color: #333333;
+    font-size: .8rem;
+}
+
+.sapMListTblRow {
+    height: 1.3rem !important;
+}
+
+.sapMImg.sapMNoImg {
+    visibility: visible !important;
+    width: 100% !important;
+    height: 70% !important;
+}
+
+.sapMFlexItemAlignAuto {
+    padding-left: 1rem !important;
+}
+
+#__panel1 {
+    height: 550px !important;
+}
+
+#__panel1-header {
+    background-color: #ADC5DB !important;
+    font-family: arial, helvetica, sans-serif !important;
+    line-height: 0.885 !important;
+    height: 1.5rem !important;
+}
+
+#__panel1-content {
+    height: 550px !important;
+    width: 700px !important;
+    padding: 0rem !important;
+}
+
+#__splitter0-content-0 {
+    width: 40% !important;
+}
+
+#__splitter0-content-1 {
+    width: 50% !important;
+}
+
+#__splitter0-content-2 {
+    width: 10% !important;
+}
+
+#__layout3 {
+    width: 50% !important;
+    height: 80% !important;
+    padding-left: 1000px !important;
+}
+
+#__layout2 {
+    width: 50% !important;
+}
+
+#__button1-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button1 {
+    height: 0rem !important;
+}
+
+#__button1-img {
+    line-height: 0.75rem;
+}
+
+#__button2-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button2 {
+    height: 0rem !important;
+}
+
+#__button2-img {
+    line-height: 0.75rem;
+}
+
+#__button3-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button3 {
+    height: 0rem !important;
+}
+
+#__button3-img {
+    line-height: 0.75rem;
+}
+
+#__button4-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button4 {
+    height: 0rem !important;
+}
+
+#__button4-img {
+    line-height: 0.75rem;
+}
+
+#__button5-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button5 {
+    height: 0rem !important;
+}
+
+#__button5-img {
+    line-height: 0.75rem;
+}
+
+#__button6-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button6 {
+    height: 0rem !important;
+}
+
+#__button6-img {
+    line-height: 0.75rem;
+}
+
+#__button7-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button7 {
+    height: 0rem !important;
+}
+
+#__button7-img {
+    line-height: 0.75rem;
+}
+
+#__button8-inner {
+    border-radius: 0rem !important;
+    border: 0rem !important;
+    display: contents;
+}
+
+#__button8 {
+    height: 0rem !important;
+}
+
+#__button8-img {
+    line-height: 0.75rem;
+}
+
+#__xmlview0--RetrveBtn {
+    padding-left: 60rem !important;
+}
+
+#__xmlview0--PostBtn {
+    padding-left: 1rem !important;
+}
+
+#__xmlview0--CnclBtn {
+    padding-left: 1rem !important;
+}
+
+#__xmlview0--RsrcnSrch {
+    padding-left: 30rem !important;
+}
+
+#__xmlview0--RerteBtn {
+    padding-left: 1rem !important;
+}
+
+#__xmlview0--BtnStart-inner {
+    width: 5.5rem !important;
+}
+
+#__xmlview0--BtnComp-inner {
+    width: 5.5rem !important;
+}
+
+#__xmlview0--BtnNC-inner {
+    width: 5.5rem !important;
+}
+
+#__xmlview0--BtnWI-inner {
+    width: 5.5rem !important;
+}
+
+#__xmlview0--BtnLabourOn-inner {
+    width: 5.5rem !important;
+}
+
+#__xmlview0--BtnLabourOff-inner {
+    width: 5.5rem !important;
+}
+
+#__xmlview0--SFCInput {
+    padding-left: 3.1rem !important;
+    padding-right: 14.25rem !important;
+}
+
+#__xmlview0--table1 {
+    width: 100% !important;
+}
+
+#__page0-cont {
+    top: 1.25rem !important;
+    padding-left: 0px !important;
+    padding-top: 10px !important;
+    padding-right: 0px !important;
+    /* left: 0rem; */
+}
+
+#__xmlview0--Title {
+    background-color: #bad2e894 !important;
+    border-color: #BAD2E8 #87A3C0 #93B2D0 #87A3C0 !important;
+    width: 100% !important;
+    height: 25px !important;
+}
+
+#__xmlview0--Title-inner {
+    font-size: small !important;
+    font-style: normal;
+    padding-left: 0.5rem !important;
+    padding-top: 0.25rem !important;
+
+}
+
+#__layout0 {
+    font-family: arial, helvetica, sans-serif, verdana;
+    font-size: 0.7em;
+    font-weight: normal;
+    font-style: normal;
+    line-height: normal;
+    padding-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#__layout1 {
+    width: 100% !important;
+}
+
+.formTextViewStyle>span {
+    line-height: inherit !important;
+}
+
+.formTextFieldStyle>label.sapMInputBasePlaceholder,
+.formTextFieldStyle>input.sapMInputBaseInner {
+    font-size: inherit;
+    padding-left: 0.3rem;
+}
+
+.formTextFieldStyle>input::-webkit-input-placeholder {
+    font-size: inherit;
+}
+
+.formTextFieldStyle>input::-moz-placeholder {
+    font-size: inherit;
+}
+
+.formTextAreaStyle>.sapMTextAreaInner,
+.formTextAreaStyle>.sapMInputBasePlaceholder {
+    font-size: inherit;
+    padding: 0.3rem;
+    line-height: inherit;
+}
+
+.formTextAreaStyle>textarea::-webkit-input-placeholder {
+    font-size: inherit;
+}
+
+.formTextAreaStyle>textarea::-moz-placeholder {
+    font-size: inherit;
+}
+
+.formDropdownBoxStyle>label.sapMSltLabel {
+    line-height: inherit;
+}
+
+.formDropdownBoxStyle>span.sapMSltArrow {
+    line-height: inherit;
+}
+
+.formDropdownBoxItemStyle.sapMSelectListItem {
+    padding-left: 0.5rem;
+}
+
+.formRadioButtonStyle>div {
+    vertical-align: middle;
+}
+
+.formRadioButtonStyle>label {
+    font-size: inherit;
+    line-height: inherit !important;
+}
+
+.formCheckBoxStyle>div.sapMCbBg {
+    position: inherit;
+}
+
+.formCheckBoxStyle>label {
+    font-size: inherit;
+    padding-left: 0.375rem !important;
+    line-height: inherit !important;
+}
+
+#__input1-inner {
+    width: 56% !important;
+}
+
+#__input1 {
+    width: 90px !important;
+    background-color: transparent !important;
+}
+
+#__text4 {
+    width: 40px !important;
+}
+
+#__text5 {
+    width: 114px !important;
+}
+
+#__container0 {
+    left: 40px !important;
+}
+
+#__container2 {
+    left: 200px !important;
+}
+
+#__container3 {
+    top: 40px !important;
+    left: 340px !important;
+}
+
+#__container4 {
+    left: 600px !important;
+}
+
+#__container6 {
+    top: 40px !important;
+    left: 680px !important;
+}
+
+#__container5 {
+    top: 120px !important;
+    left: 880px !important;
+}
+
+#cellTitle_c0c0 {
+    font-family: Verdana, Arial, Helvetica, Sans serif !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    padding-left: 500px !important;
+    height: 30px !important;
+    padding-top: 20px !important;
+}
+
+.sapUiTv {
+    font-size: 15px !important;
+}

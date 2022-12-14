@@ -1,0 +1,67 @@
+{
+    "results": [
+        {
+            "Status": "READY_FOR_LOAD",
+            "MEStatus": "IDLE",
+            "AllowedNextSatus": 1,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "0"
+        },
+        {
+            "Status": "LOADING",
+            "MEStatus": "PRODUCTIVE",
+            "AllowedNextSatus": 0,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "0"
+        },
+        {
+            "Status": "LID_ON",
+            "MEStatus": "PRODUCTIVE",
+            "AllowedNextSatus": 1,
+            "FurnaceStartFlag": "1",
+            "FurnaceEndFlag": "0"
+        },
+        {
+            "Status": "GAS_ON",
+            "MEStatus": "PRODUCTIVE",
+            "AllowedNextSatus": 0,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "0"
+        },
+        {
+            "Status": "GAS_OFF",
+            "MEStatus": "PRODUCTIVE",
+            "AllowedNextSatus": 0,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "0"
+        },
+        {
+            "Status": "LID_OFF",
+            "MEStatus": "PRODUCTIVE",
+            "AllowedNextSatus": 0,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "1"
+        },
+        {
+            "Status": "PLANNED_MAINT",
+            "MEStatus": "MAINT",
+            "AllowedNextSatus": 0,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "0"
+        },
+        {
+            "Status": "UNPLANNED_MAINT",
+            "MEStatus": "MAINT",
+            "AllowedNextSatus": 0,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "0"
+        },
+        {
+            "Status": "UNLOAD",
+            "MEStatus": "PRODUCTIVE",
+            "AllowedNextSatus": 0,
+            "FurnaceStartFlag": "0",
+            "FurnaceEndFlag": "0"
+        }
+    ]
+}

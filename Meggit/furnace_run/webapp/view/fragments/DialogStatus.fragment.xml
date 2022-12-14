@@ -1,0 +1,16 @@
+<core:FragmentDefinition 
+	xmlns:core="sap.ui.core" 
+	xmlns:ui="sap.ui.table" 
+    displayBlock="true"
+	xmlns="sap.m">
+
+    <Dialog id="idStatusDialog" resizable="true" contentWidth="420px" contentHeight="600px">
+        <content>
+        </content>
+
+        <buttons>
+            <Button text="{i18n>Save}"   press="onSaveStatusDialog" />
+            <Button text="{i18n>Cancel}" press="onCloseStatusDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

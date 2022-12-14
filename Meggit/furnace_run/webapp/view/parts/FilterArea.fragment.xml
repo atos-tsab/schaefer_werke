@@ -1,0 +1,119 @@
+<core:FragmentDefinition
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:card="sap.f.cards"
+ 	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified" 
+	xmlns:l="sap.ui.layout" 
+    displayBlock="true"
+	xmlns:f="sap.f"
+    xmlns="sap.m">
+
+<!--     <Title id="Title" text="{i18n>PodSelection}" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+ -->
+	<Panel accessibleRole="Form" height="185px">
+		<content>
+			<f:GridContainer>
+				<f:layout>
+					<f:GridContainerSettings rowSize="4px" columnSize="208px" gap="5px" />
+				</f:layout>
+				<f:layoutXS>
+					<f:GridContainerSettings rowSize="4px" columnSize="208px" gap="5px" />
+				</f:layoutXS>
+				<f:items>
+					<f:Card>
+						<f:layoutData>
+							<f:GridContainerItemLayoutData columns="4" />
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>PodSelection}" />
+						</f:header>
+						<f:content>
+							<VBox class="sapUiSmallMargin" justifyContent="Start">
+								<HBox justifyContent="SpaceBetween" wrap="Wrap">
+									<HBox justifyContent="Start">
+										<Label text="{i18n>FurnaceColon}" width="115px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<ComboBox 
+											id="idComboBoxResource" 
+											placeholder="{i18n>ResourcePlaceholder}"
+											filterSecondaryValues="true"
+											showSecondaryValues="true"
+											width="200px"
+											selectionChange="onSelectionChangeResource">
+										</ComboBox>
+									</HBox>
+
+									<HBox justifyContent="Start">
+										<Label text="{i18n>FurnaceRunIdColon}" width="115px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<ComboBox 
+											id="idComboBoxFurnRunId" 
+											class="sapUiMediumMarginEnd"
+											placeholder="{i18n>FurnaceRunIdPlaceholder}"
+											filterSecondaryValues="true"
+											showSecondaryValues="true"
+											width="220px"
+											selectionChange="onSelectionChangeFurnRunId">
+										</ComboBox>
+									</HBox>
+								</HBox>
+
+								<HBox justifyContent="Start" wrap="Wrap">
+									<HBox justifyContent="Start">
+										<Label text="{i18n>LayerColon}" width="115px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<ComboBox 
+											id="idComboBoxLayer" 
+											filterSecondaryValues="true"
+											showSecondaryValues="true"
+											width="200px" 
+											selectionChange="onSelectionChangeLayer">
+										</ComboBox>
+									</HBox>
+									<HBox class="sapUiLargeMarginBegin" justifyContent="Start">
+									</HBox>
+								</HBox>
+							</VBox>
+						</f:content>
+					</f:Card>
+
+					<f:Card>
+						<f:layoutData>
+							<f:GridContainerItemLayoutData minRows="4" columns="4" />
+						</f:layoutData>
+						<f:header>
+							<card:Header title="Status and Time" />
+						</f:header>
+						<f:content>
+							<VBox class="sapUiSmallMargin" justifyContent="Start">
+								<HBox justifyContent="SpaceBetween" wrap="Wrap">
+									<HBox justifyContent="Start">
+										<Label text="{i18n>FurnaceStatusColon}" width="120px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<Input id="idInputFurnaceStatus" value="" width="200px" />
+										<Button id="idButtonStatusChange" press="onStatusChangePress" text="{i18n>Change}" type="Reject" 
+												enabled="false" width="70px" class="sapUiTinyMarginBegin" />
+									</HBox>
+
+									<HBox justifyContent="Start" wrap="Wrap">
+										<Label text="{i18n>RunTimeColon}" width="120px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<Input id="idInputRunTime" value="" width="60px" class="sapUiMediumMarginEnd" visible="true" />
+									</HBox>
+								</HBox>
+
+								<HBox justifyContent="SpaceBetween" wrap="Wrap">
+									<HBox justifyContent="Start" wrap="Wrap">
+										<Label text="{i18n>StartDateTimeColon}" width="120px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<Input id="idInputStartDateTime" value="" width="120px" />
+									</HBox>
+
+									<HBox justifyContent="Start" wrap="Wrap">
+										<Label text="{i18n>TimeRemainingColon}" width="120px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<Input id="idInputRemainTime" value="" width="60px" class="sapUiMediumMarginEnd" />
+									</HBox>
+								</HBox>
+							</VBox>
+						</f:content>
+					</f:Card>
+				</f:items>
+			</f:GridContainer>
+		</content>
+	</Panel>
+
+</core:FragmentDefinition>

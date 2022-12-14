@@ -1,0 +1,100 @@
+{
+    "results": [
+        {
+            "Layer": "3",
+            "Position": "1",
+            "Module": "test Jig type ID 01",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "2",
+            "Module": "test Jig type ID 01",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "3",
+            "Module": "test Jig type ID 01",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "4",
+            "Module": "test Jig type ID 03",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "5",
+            "Module": "test Jig type ID 03",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "6",
+            "Module": "test Jig type ID 02",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "7",
+            "Module": "test Jig type ID 05",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "8",
+            "Module": "test Jig type ID 06",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "9",
+            "Module": "test Jig type ID 07",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "10",
+            "Module": "test Jig type ID 07",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "11",
+            "Module": "test Jig type ID 07",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "12",
+            "Module": "test Jig type ID 05",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "13",
+            "Module": "test Jig type ID 06",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "14",
+            "Module": "test Jig type ID 07",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "15",
+            "Module": "test Jig type ID 07",
+            "LoadedModuleID": ""
+        },
+        {
+            "Layer": "3",
+            "Position": "16",
+            "Module": "test Jig type ID 07",
+            "LoadedModuleID": ""
+        }
+    ]
+}

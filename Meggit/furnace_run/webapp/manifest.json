@@ -1,0 +1,143 @@
+{
+  "_version": "1.17.0",
+  "sap.app": {
+    "id": "furnacerun",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "dataSources": {
+      "resData_alias": {
+        "uri": "model/data/Resources.json",
+        "type": "JSON"
+      },
+      "statusData_alias": {
+        "uri": "model/data/StatusData.json",
+        "type": "JSON"
+      },
+      "friData_alias": {
+        "uri": "model/data/FurnaceRunIds.json",
+        "type": "JSON"
+      },
+      "layData_alias": {
+        "uri": "model/data/Layers.json",
+        "type": "JSON"
+      },
+      "layDetailsData_alias": {
+        "uri": "model/data/LayerDetails.json",
+        "type": "JSON"
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+		"fullWidth": true
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.71.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "furnacerun.i18n.i18n"
+        }
+      },
+      "resData": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "resData_alias"
+      },
+      "statusData": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "statusData_alias"
+      },
+      "friData": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "friData_alias"
+      },
+      "layData": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "layData_alias"
+      },
+      "layDetailsData": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "layDetailsData_alias"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "furnacerun.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "main",
+          "target": [
+            "TargetMain"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "main",
+          "viewName": "Main"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "furnacerun.view.Main",
+      "type": "XML",
+      "async": true,
+      "id": "Main"
+    }
+  }
+}

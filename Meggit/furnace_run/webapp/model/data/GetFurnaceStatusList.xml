@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Rowsets CachedTime="" DateCreated="2022-12-09T11:44:32" EndDate="2022-12-09T11:44:32" StartDate="2022-12-09T10:44:32" Version="15.5 SP0 Patch 11 (09-Nov-2022)"> 
+    <Rowset> 
+        <Columns> 
+            <Column Name="Status" SourceColumn="Status" Description="Status" MaxRange="1" MinRange="1" SQLDataType="12" />
+            <Column Name="MEStatus" SourceColumn="MEStatus" Description="MEStatus" MaxRange="1" MinRange="1" SQLDataType="12" />
+            <Column Name="AllowedNextSatus" SourceColumn="AllowedNextSatus" Description="AllowedNextSatus" MaxRange="1" MinRange="1" SQLDataType="4" />
+            <Column Name="FurnaceStartFlag" SourceColumn="FurnaceStartFlag" Description="FurnaceStartFlag" MaxRange="1" MinRange="1" SQLDataType="12" />
+            <Column Name="FurnaceEndFlag" SourceColumn="FurnaceEndFlag" Description="FurnaceEndFlag" MaxRange="1" MinRange="1" SQLDataType="12" />
+        </Columns>
+        <Row>
+            <Status>READY_FOR_LOAD</Status>
+            <MEStatus>IDLE</MEStatus>
+            <AllowedNextSatus>1</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>LOADING</Status>
+            <MEStatus>PRODUCTIVE</MEStatus>
+            <AllowedNextSatus>0</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>LID_ON</Status>
+            <MEStatus>PRODUCTIVE</MEStatus>
+            <AllowedNextSatus>1</AllowedNextSatus>
+            <FurnaceStartFlag>1</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>GAS_ON</Status>
+            <MEStatus>PRODUCTIVE</MEStatus>
+            <AllowedNextSatus>0</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>GAS_OFF</Status>
+            <MEStatus>PRODUCTIVE</MEStatus>
+            <AllowedNextSatus>0</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>LID_OFF</Status>
+            <MEStatus>PRODUCTIVE</MEStatus>
+            <AllowedNextSatus>0</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>1</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>PLANNED_MAINT</Status>
+            <MEStatus>MAINT</MEStatus>
+            <AllowedNextSatus>0</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>UNPLANNED_MAINT</Status>
+            <MEStatus>MAINT</MEStatus>
+            <AllowedNextSatus>0</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+        <Row>
+            <Status>UNLOAD</Status>
+            <MEStatus>PRODUCTIVE</MEStatus>
+            <AllowedNextSatus>0</AllowedNextSatus>
+            <FurnaceStartFlag>0</FurnaceStartFlag>
+            <FurnaceEndFlag>0</FurnaceEndFlag>
+        </Row>
+    </Rowset>
+</Rowsets>

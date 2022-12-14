@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified" 
+	xmlns:l="sap.ui.layout" 
+    displayBlock="true"
+    xmlns="sap.m">
+
+	<l:ResponsiveSplitter id="idSplitterFurnaceRun" defaultPane="idSplitPaneDefault" height="auto" class="sapUiNoContentPadding">
+		<l:PaneContainer>
+			<l:SplitPane requiredParentWidth="400" id="idSplitPaneDefault" class="sapUiNoContentPadding">
+				<core:Fragment fragmentName="furnacerun.view.parts.UiTable" type="XML" />
+
+		        <l:layoutData> 
+                    <l:SplitterLayoutData size="45%" /> 
+                </l:layoutData>
+			</l:SplitPane>
+			<l:SplitPane id="idSplitPanePic" requiredParentWidth="600" class="sapUiNoContentPadding">
+				<Panel headerText="{i18n>ImageTitle}" backgroundDesign="Solid" width="500px">
+					<HBox fitContainer="true" alignContent="Center" alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBegin sapUiMediumMarginTop sapUiSmallMarginBottom">
+						<Image id="idImagePod" error=".onImageError" src="{SRC}" height="480px" width="auto" visible="true" />
+					</HBox>
+				</Panel> 
+
+		        <l:layoutData> 
+                    <l:SplitterLayoutData size="502px" /> 
+                </l:layoutData>
+			</l:SplitPane>
+			<l:SplitPane requiredParentWidth="800" class="sapUiNoContentPadding">
+				<VBox>
+					<Button id="idButtonWI"      press="onPressWI"      text="{i18n>WI}"      type="Emphasized" width="100px" class="sapUiMediumMarginBegin sapUiLargeMarginTop" />
+					<Button id="idButtonComment" press="onPressComment" text="{i18n>Comment}" type="Emphasized" width="100px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+					<Button id="idButtonLogNC"   press="onPressLogNC"   text="{i18n>LogNC}"   type="Emphasized" width="100px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+				</VBox>
+
+		        <l:layoutData> 
+                    <l:SplitterLayoutData size="auto" /> 
+                </l:layoutData>
+			</l:SplitPane>
+		</l:PaneContainer>
+	</l:ResponsiveSplitter>
+
+</core:FragmentDefinition>

@@ -1,0 +1,79 @@
+{
+    "results": [
+        {
+            "FurnaceRunID": "BIG_FURNACE_04_0001",
+            "PlannedRunDate": "12/05/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_04_0002",
+            "PlannedRunDate": "01/06/2023 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_05_0001",
+            "PlannedRunDate": "19/05/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_05_0002",
+            "PlannedRunDate": "26/05/2023 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_05_0003",
+            "PlannedRunDate": "02/06/2023 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_06_0001",
+            "PlannedRunDate": "10/06/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_06_0002",
+            "PlannedRunDate": "17/06/2023 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_06_0003",
+            "PlannedRunDate": "24/06/2023 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "BIG_FURNACE_06_0004",
+            "PlannedRunDate": "01/07/2023 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "SMALL_FURNACE_01_0001",
+            "PlannedRunDate": "05/05/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "SMALL_FURNACE_02_0001",
+            "PlannedRunDate": "12/05/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "SMALL_FURNACE_02_0002",
+            "PlannedRunDate": "19/05/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "SMALL_FURNACE_02_0003",
+            "PlannedRunDate": "26/05/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "SMALL_FURNACE_03_0001",
+            "PlannedRunDate": "26/05/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        },
+        {
+            "FurnaceRunID": "SMALL_FURNACE_03_0002",
+            "PlannedRunDate": "02/06/2022 00:00:00",
+            "CurrentFurnaceRun": 0
+        }
+    ]
+}

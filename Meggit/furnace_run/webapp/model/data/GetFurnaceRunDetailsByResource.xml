@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Rowsets CachedTime="" DateCreated="2022-12-12T16:19:20" EndDate="2022-12-12T16:19:20" StartDate="2022-12-12T15:19:20" Version="15.5 SP0 Patch 11 (09-Nov-2022)"> 
+    <Rowset> 
+        <Columns> 
+            <Column Name="FURNACE_RUN_STATUS" SourceColumn="FURNACE_RUN_STATUS" Description="FURNACE_RUN_STATUS" MaxRange="1" MinRange="1" SQLDataType="-9" />
+            <Column Name="FURNACE_RUN_START_DATE" SourceColumn="FURNACE_RUN_START_DATE" Description="FURNACE_RUN_START_DATE" MaxRange="1" MinRange="1" SQLDataType="-9" />
+            <Column Name="FURNACE_RUN_END_DATE" SourceColumn="FURNACE_RUN_END_DATE" Description="FURNACE_RUN_END_DATE" MaxRange="1" MinRange="1" SQLDataType="-9" />
+            <Column Name="RunTime" SourceColumn="RunTime" Description="RunTime" MaxRange="1" MinRange="1" SQLDataType="4" />
+            <Column Name="RemainingTime" SourceColumn="RemainingTime" Description="RemainingTime" MaxRange="1" MinRange="1" SQLDataType="12" />
+        </Columns>
+        <Row>
+            <FURNACE_RUN_STATUS>LOADING</FURNACE_RUN_STATUS>
+            <FURNACE_RUN_START_DATE>NA</FURNACE_RUN_START_DATE>
+            <FURNACE_RUN_END_DATE>NA</FURNACE_RUN_END_DATE>
+            <RunTime>0</RunTime>
+            <RemainingTime>0</RemainingTime>
+        </Row>
+    </Rowset>
+</Rowsets>

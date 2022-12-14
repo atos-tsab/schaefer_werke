@@ -1,0 +1,22 @@
+<core:FragmentDefinition 
+	xmlns:core="sap.ui.core" 
+	xmlns:ui="sap.ui.table" 
+    displayBlock="true"
+	xmlns="sap.m">
+
+    <Dialog id="idProcessLotDialog" resizable="true" contentWidth="370px" contentHeight="100px">
+        <content>
+			<VBox class="sapUiSmallMargin" justifyContent="Start">
+				<HBox justifyContent="Start">
+					<Label text="{i18n>ProcessLot}" width="100px" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+					<Input id="idInputProcessLot" change="onProcessLotPress" value="" width="200px" class="sapUiSmallMarginEnd" />
+				</HBox>
+			</VBox>
+        </content>
+
+        <buttons>
+            <Button text="{i18n>Save}"   type="Emphasized" press="onSaveLoadJigDialog" />
+            <Button text="{i18n>Cancel}" type="Default"    press="onCloseLoadJigDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

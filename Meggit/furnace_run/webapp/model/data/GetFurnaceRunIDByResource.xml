@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Rowsets CachedTime="" DateCreated="2022-12-08T09:52:32" EndDate="2022-12-08T09:52:32" StartDate="2022-12-08T08:52:32" Version="15.5 SP0 Patch 11 (09-Nov-2022)"> 
+    <Rowset> 
+        <Columns> 
+            <Column Name="FurnaceRunID" SourceColumn="FurnaceRunID" Description="FurnaceRunID" MaxRange="1" MinRange="1" SQLDataType="4" />
+            <Column Name="PlannedRunDate" SourceColumn="PlannedRunDate" Description="PlannedRunDate" MaxRange="1" MinRange="1" SQLDataType="4" />
+            <Column Name="CurrentFurnaceRun" SourceColumn="CurrentFurnaceRun" Description="CurrentFurnaceRun" MaxRange="1" MinRange="1" SQLDataType="4" />
+        </Columns>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_04_0001</FurnaceRunID>
+            <PlannedRunDate>12/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_04_0002</FurnaceRunID>
+            <PlannedRunDate>01/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_05_0001</FurnaceRunID>
+            <PlannedRunDate>19/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_05_0002</FurnaceRunID>
+            <PlannedRunDate>26/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_05_0003</FurnaceRunID>
+            <PlannedRunDate>02/06/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_06_0001</FurnaceRunID>
+            <PlannedRunDate>10/06/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_06_0002</FurnaceRunID>
+            <PlannedRunDate>17/06/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_06_0003</FurnaceRunID>
+            <PlannedRunDate>24/06/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>BIG_FURNACE_06_0004</FurnaceRunID>
+            <PlannedRunDate>01/07/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>SMALL_FURNACE_01_0001</FurnaceRunID>
+            <PlannedRunDate>05/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>SMALL_FURNACE_02_0001</FurnaceRunID>
+            <PlannedRunDate>12/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>SMALL_FURNACE_02_0002</FurnaceRunID>
+            <PlannedRunDate>19/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>SMALL_FURNACE_02_0003</FurnaceRunID>
+            <PlannedRunDate>26/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>SMALL_FURNACE_03_0001</FurnaceRunID>
+            <PlannedRunDate>26/05/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+        <Row>
+            <FurnaceRunID>SMALL_FURNACE_03_0002</FurnaceRunID>
+            <PlannedRunDate>02/06/2022 00:00:00</PlannedRunDate>
+            <CurrentFurnaceRun>0</CurrentFurnaceRun>
+        </Row>
+    </Rowset>
+</Rowsets>
