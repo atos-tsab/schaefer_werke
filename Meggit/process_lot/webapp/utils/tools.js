@@ -9,7 +9,7 @@
  ************************************************************************/
 
 
-sap.ui.define([
+ sap.ui.define([
     "sap/ui/core/library",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel"
@@ -31,7 +31,7 @@ sap.ui.define([
 
 
         // --------------------------------------------------------------------------------------------------------------------
-        // ---- Generic Functions
+        // ---- Generic Functions for Components
         // --------------------------------------------------------------------------------------------------------------------
 
         onComboBoxChange: function (oView, oEvent, param, msgText, trigger) {
@@ -233,6 +233,22 @@ sap.ui.define([
             }
         },
 
+        _handleQueryUri: function (app, prg) {
+            // ---- Get all the Connection parameter names from i18n file
+            var illuminator = this.getResourceBundle().getText("XMiiIlluminator");
+            var qTempName = this.getResourceBundle().getText("XMiiQueryTempName");
+            var qTemplate = this.getResourceBundle().getText("XMiiQueryTemplate");
+            var qTempConst = this.getResourceBundle().getText("XMiiQueryTempConst");
+            var qContTypeTxt = this.getResourceBundle().getText("XMiiQueryContentTypeText");
+            var qContentType = this.getResourceBundle().getText("XMiiQueryContentType");
+
+            // ---- Define the Uri string for the Ajax Query and return it
+            var uri = "";
+                uri = illuminator + "?" + qTempName + "=" + qTemplate + "/" + app + "/" + qTempConst + "/" + prg + "&" + qContTypeTxt + "=" + qContentType;
+
+            return uri;
+        },
+
 
         // --------------------------------------------------------------------------------------------------------------------
         // ---- Helper Functions
@@ -262,24 +278,6 @@ sap.ui.define([
 
                 this._openModelDataDialog(thisExt, oView, sPath, oData, entity, entityId, fragmentFile, xray, "Table");
             }
-        },
-
-        splitStringIntoArray: function (seperatorText, seperator) {
-            var ResultArray = null;
-
-            if (seperatorText !== null) {
-                var SplitChars = seperator;
-
-                if (seperatorText.indexOf(SplitChars) >= 0) {
-                    ResultArray = seperatorText.split(SplitChars);
-                }
-            }
-
-            return ResultArray;
-        },
-
-        _isObject: function (obj) {
-            return obj instanceof Object && obj.constructor === Object;
         },
 
 
@@ -647,69 +645,8 @@ sap.ui.define([
 
 
         // --------------------------------------------------------------------------------------------------------------------
-        // ---- Basic Functions
+        // ---- Message Functions
         // --------------------------------------------------------------------------------------------------------------------
-
-		autoResizeColumns: function (oTable) {
-			var tcols = oTable.getColumns();
-
-			// ---- Auto resize all automatic rendered columns from a UI Table
-			for (var index in tcols) {
-				if (tcols.hasOwnProperty(index)) {
-					oTable.autoResizeColumn(index);
-				}
-			}
-
-			// ---- Auto resize the first columns from a UI Table
-			oTable.autoResizeColumn(0);
-		},
-
-        getUriParameters: function (prop) {
-            var uriCheck = false;
-
-            if (jQuery.sap.getUriParameters() !== null && jQuery.sap.getUriParameters() !== undefined &&
-                jQuery.sap.getUriParameters().mParams !== null && jQuery.sap.getUriParameters().mParams !== undefined) {
-
-                var param = jQuery.sap.getUriParameters().mParams;
-
-                // ---- Set Test Flags over Url parameter
-                if (param[prop] !== null && param[prop] !== undefined && param[prop].length > 0) {
-                    if (param[prop][0] === "true") {
-                        uriCheck = true;
-                    } else {
-                        uriCheck = false;
-                    }
-                }
-            }
-
-            return uriCheck;
-        },
-
-        removeArrayData: function (oView, data) {
-            var oModel = oView.getModel();
-
-            if (data !== null && data !== undefined && data.length > 0) {
-                for (let i = 0; i < data.length; i++) {
-                    let param = data[i];
-
-                    oModel.setProperty("/" + param, "");
-                }
-            }
-        },
-
-        splitStringIntoArray: function (seperatorText, seperator) {
-            var ResultArray = null;
-
-            if (seperatorText !== null) {
-                var SplitChars = seperator;
-
-                if (seperatorText.indexOf(SplitChars) >= 0) {
-                    ResultArray = seperatorText.split(SplitChars);
-                }
-            }
-
-            return ResultArray;
-        },
 
         showMessageInfo: function (oInfo, oDetails) {
             sap.m.MessageBox.information(oInfo, {
@@ -775,8 +712,164 @@ sap.ui.define([
             });
         },
 
+
+        // --------------------------------------------------------------------------------------------------------------------
+        // ---- Basic Functions
+        // --------------------------------------------------------------------------------------------------------------------
+
+		autoResizeColumns: function (oTable) {
+			var tcols = oTable.getColumns();
+
+			// ---- Auto resize all automatic rendered columns from a UI Table
+			for (var index in tcols) {
+				if (tcols.hasOwnProperty(index)) {
+					oTable.autoResizeColumn(index);
+				}
+			}
+
+			// ---- Auto resize the first columns from a UI Table
+			oTable.autoResizeColumn(0);
+		},
+
+        getUriParameters: function (prop) {
+            var uriCheck = false;
+
+            if (jQuery.sap.getUriParameters() !== null && jQuery.sap.getUriParameters() !== undefined &&
+                jQuery.sap.getUriParameters().mParams !== null && jQuery.sap.getUriParameters().mParams !== undefined) {
+
+                var param = jQuery.sap.getUriParameters().mParams;
+
+                // ---- Set Test Flags over Url parameter
+                if (param[prop] !== null && param[prop] !== undefined && param[prop].length > 0) {
+                    if (param[prop][0] === "true") {
+                        uriCheck = true;
+                    } else {
+                        uriCheck = false;
+                    }
+                }
+            }
+
+            return uriCheck;
+        },
+
+        getUriParameterCType: function (prop) {
+            var uriCheck = "";
+
+            if (jQuery.sap.getUriParameters() !== null && jQuery.sap.getUriParameters() !== undefined &&
+                jQuery.sap.getUriParameters().mParams !== null && jQuery.sap.getUriParameters().mParams !== undefined) {
+
+                var param = jQuery.sap.getUriParameters().mParams;
+
+                // ---- Set Test Flags over Url parameter
+                if (param[prop] !== null && param[prop] !== undefined && param[prop].length > 0) {
+                    if (param[prop][0] !== "") {
+                        uriCheck = param[prop][0];
+                    }
+                }
+            }
+
+            return uriCheck;
+        },
+
+        removeArrayData: function (oView, data) {
+            var oModel = oView.getModel();
+
+            if (data !== null && data !== undefined && data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    let param = data[i];
+
+                    oModel.setProperty("/" + param, "");
+                }
+            }
+        },
+
+        splitStringIntoArray: function (seperatorText, seperator) {
+            var ResultArray = null;
+
+            if (seperatorText !== null) {
+                var SplitChars = seperator;
+
+                if (seperatorText.indexOf(SplitChars) >= 0) {
+                    ResultArray = seperatorText.split(SplitChars);
+                }
+            }
+
+            return ResultArray;
+        },
+
         getResourceBundle: function (ownerComponent) {
             return this.OwnerComponent.getModel("i18n").getResourceBundle();
+        },
+
+        _parseXmlToJson: function (xml) {
+            // ---- Changes XML to JSON
+            var that = this;
+            var obj = {};
+
+            if (xml.nodeType == 1) {
+                // ---- Element
+                // ---- Do attributes
+                if (xml.attributes.length > 0) {
+                    obj["@attributes"] = {};
+
+                    for (var j = 0; j < xml.attributes.length; j++) {
+                        var attribute = xml.attributes.item(j);
+
+                        obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+                    }
+                }
+            } else if (xml.nodeType == 3) {
+                // ---- Text
+                obj = xml.nodeValue;
+            }
+
+            // ---- Do children
+            // ---- If all text nodes inside, get concatenated text from them.
+            var textNodes = [].slice.call(xml.childNodes).filter(function (node) {
+                return node.nodeType === 3;
+            });
+
+            if (xml.hasChildNodes() && xml.childNodes.length === textNodes.length) {
+                obj = [].slice.call(xml.childNodes).reduce(function (text, node) {
+                    return text + node.nodeValue;
+                }, "");
+            } else if (xml.hasChildNodes()) {
+                for (var i = 0; i < xml.childNodes.length; i++) {
+                    var item = xml.childNodes.item(i);
+                    var nodeName = item.nodeName;
+
+                    if (typeof obj[nodeName] == "undefined") {
+                        obj[nodeName] = that._parseXmlToJson(item);
+                    } else {
+                        if (typeof obj[nodeName].push == "undefined") {
+                            var old = obj[nodeName];
+
+                            obj[nodeName] = [];
+                            obj[nodeName].push(old);
+                        }
+
+                        obj[nodeName].push(that._parseXmlToJson(item));
+                    }
+                }
+            }
+
+            return obj;
+        },
+
+        _isNumeric: function (num) {
+            if (typeof (num) === "number" && !isNaN(num)) {
+                return true;
+            } else if (typeof (num) === "string" && isNaN(num)) {
+                return false;
+            } else if (num.trim() === undefined && num.trim() === "") {
+                return false;
+            } else {
+                return false;
+            }
+        },
+
+        _isObject: function (obj) {
+            return obj instanceof Object && obj.constructor === Object;
         }
 
 

@@ -13,10 +13,9 @@ sap.ui.define([
 	"processlot/controller/BaseController",
 	"processlot/model/formatter",
 	"processlot/utils/tools",
-	"processlot/utils/qhelp",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter"
-], function (BaseController, formatter, tools, qhelp, JSONModel, Filter) {
+], function (BaseController, formatter, tools, JSONModel, Filter) {
 
 	"use strict";
 
@@ -32,7 +31,6 @@ sap.ui.define([
 
 		// ---- Implementation of an utility toolset for generic use
 		tools: tools,
-		qhelp: qhelp,
 
 
 		// --------------------------------------------------------------------------------------------------------------------
@@ -62,7 +60,6 @@ sap.ui.define([
 
 			// ---- Define the Owner Component for the Tools Util
 			tools.onInit(this.getOwnerComponent());
-			qhelp.onInit(this.getOwnerComponent(), this.MockData);
 
 			// ---- Define the Smart components
 			this.mTable = this.byId("idTableSFCLot");
@@ -118,7 +115,7 @@ sap.ui.define([
 		// --------------------------------------------------------------------------------------------------------------------
 
 		onCompleteAll: function (oEvent) {
-			qhelp.alertMe("Complete All button clicked!");
+			tools.alertMe("Complete All button clicked!");
 		},
 
 		onAddSFC: function (oEvent) {
@@ -258,7 +255,7 @@ sap.ui.define([
 
 				this.byId("idButtonCreateTable").setEnabled(true);
 
-				qhelp.alertMe("New Carrier ID created!");
+				tools.alertMe("New Carrier ID created!");
 
 				// ---- Disable the Create button after creation process
 				setTimeout(function () {
@@ -267,7 +264,7 @@ sap.ui.define([
 					that._createTableData();
 				}.bind(this), 3000);
 			} else {
-				qhelp.alertMe("Add one or more SFC numbers!");
+				tools.alertMe("Add one or more SFC numbers!");
 			}
 		},
 
@@ -402,6 +399,7 @@ sap.ui.define([
 		_setCarrierTypeData: function (ctype) {
 			var cidModel = this.getOwnerComponent().getModel("cidData");
 			var xmlFile = _dataPath + "GetCarrierType.xml";
+			var inputParam = "";
 			var that = this;
 			var entry = "";
 			var cData = {};
@@ -428,22 +426,17 @@ sap.ui.define([
 					this._onLoadXmlData(xmlFile).then((data) => {
 						// ---- Set Data model for the selected Carrier Type
 						that._loadCarrierTypeComboBox(data, entry);
-					})
-					.catch((error) => {
+					}).catch((error) => {
 						qhelp.showMessageError(errorMes);
 					})
 				}
 			} else {
-				// onGetData: (app, taction, aData{Site, carrierType})
-				qhelp.onGetData("Build_Module", "SQL_GetCarrierType", "");
-
-				// this.onGetData("Build_Module", "SQL_GetCarrierType", "").then((data) => {
-				// 	// ---- Set Data model for the selected Carrier Type
-				// 	that._loadCarrierTypeComboBox(data, entry);
-				// })
-				// .catch((error) => {
-				// 	qhelp.showMessageError(errorMes);
-				// })
+				this.onGetData("Build_Module", "SQL_GetCarrierType", inputParam).then((data) => {
+					// ---- Set Data model for the selected Carrier Type
+					that._loadCarrierTypeComboBox(data, entry);
+				}).catch((error) => {
+					qhelp.showMessageError(errorMes);
+				})
 			}
 		},
 
@@ -480,6 +473,7 @@ sap.ui.define([
 		},
 
 		_setCarrierIdData: function () {
+			var inputParam = "Param.1=3015&Param.2=" + this.CarrierType;
 			var cidModel = this.getOwnerComponent().getModel("cidData");
 			var xmlFile  = _dataPath + "GetProcessLotByCarrierType.xml";
 			var that  = this;
@@ -497,18 +491,15 @@ sap.ui.define([
 					this._onLoadXmlData(xmlFile).then((data) => {
 						// ---- Set Data model for the selected Carrier Type
 						that._loadCarrierIdComboBox(data);
-					})
-					.catch((error) => {
+					}).catch((error) => {
 						qhelp.showMessageError(errorMes);
 					})
 				}
 			} else {
-				// onGetData: (app, taction, aData{Site, carrierType})
-				this.onGetData("Build_Module", "XAC_GetProcessLotByCarrierType", { "Site": 3015, "carrierType": this.CarrierType }).then((data) => {
+				this.onGetData("Build_Module", "XAC_GetProcessLotByCarrierType", inputParam).then((data) => {
 					// ---- Set Data model for the selected Carrier Type
 					that._loadCarrierIdComboBox(data);
-				})
-				.catch((error) => {
+				}).catch((error) => {
 					qhelp.showMessageError(errorMes);
 				})
 			}
@@ -554,6 +545,7 @@ sap.ui.define([
 		},
 
 		_setSFCNumberData: function () {
+			var inputParam = "Param.1=3015&Param.2=" + this.CarrierType;
 			var sfcModel = this.getOwnerComponent().getModel("sfcData");
 			var xmlFile  = _dataPath + "BrowseForSFCByResource.xml";
 			var that  = this;
@@ -570,18 +562,15 @@ sap.ui.define([
 					this._onLoadXmlData(xmlFile).then((data) => {
 						// ---- Set Data model for the selected Carrier Type
 						that._loadSFCNumberComboBox(data);
-					})
-					.catch((error) => {
+					}).catch((error) => {
 						qhelp.showMessageError(errorMes);
 					})
 				}
 			} else {
-				// onGetData: (app, taction, aData{Site, carrierType})
-				this.onGetData("Build_Module", "XAC_BrowseForSFCByResource", { "Site": 3015, "carrierType": this.CarrierType }).then((data) => {
+				this.onGetData("Build_Module", "XAC_BrowseForSFCByResource", inputParam).then((data) => {
 					// ---- Set Data model for the selected Carrier Type
 					that._loadSFCNumberComboBox(data);
-				})
-				.catch((error) => {
+				}).catch((error) => {
 					qhelp.showMessageError(errorMes);
 				})
 			}
@@ -718,25 +707,24 @@ sap.ui.define([
 
 		onGetData: function (app, prg, aData) {
 			var errorMes = this.getResourceBundle().getText("errorText");
-			var that = this;
 
 			// ---- Get Uri connection string
-			var uri = qhelp._handleQueryUri(app, prg);
+			var uri = tools._handleQueryUri(app, prg);
 
 			return new Promise((resolve, reject) => {
 				try {
 					jQuery.ajax({
 						url: uri,
-						type: that.AjaxTypeGet,
-						async: that.AjaxAsyncDefault,
+						type: "GET",
+						async: false,
 						data: aData,
 						success: function (oData, oResponse) {
 							if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
-								var data = oData.Rowsets.Rowset.Row;
+								var data = oData.Rowsets.Rowset[0].Row;
 
 								resolve(data);
 							} else {
-								qhelp.showMessageError(oData.Rowsets.FatalError, "");
+								tools.showMessageError(oData.Rowsets.FatalError, "");
 							}
 						},
 						error: function (oError, oResp) {
@@ -744,45 +732,80 @@ sap.ui.define([
 						}
 					});
 				} catch (error) {
-					qhelp.showMessageError(errorMes);
+					tools.showMessageError(errorMes);
+				}
+			});
+		},
+
+		onPostData: function (app, prg, aData) {
+			var errorMes = this.getResourceBundle().getText("errorText");
+
+			// ---- Get Uri connection string
+			var uri = tools._handleQueryUri(app, prg);
+
+			return new Promise((resolve, reject) => {
+				try {
+					jQuery.ajax({
+						url: uri,
+						type: "POST",
+						async: false,
+						data: aData,
+						success: function (oData, oResponse) {
+							if (oData.Rowsets.Rowset !== null && oData.Rowsets.Rowset !== undefined) {
+								var data = oData.Rowsets.Rowset[0].Row;
+
+								resolve(data);
+							} else {
+								tools.showMessageError(oData.Rowsets.FatalError, "");
+							}
+						},
+						error: function (oError, oResp) {
+							reject(oError);
+						}
+					});
+				} catch (error) {
+					tools.showMessageError(errorMes);
 				}
 			});
 		},
 
 		_onLoadXmlData: function (xmlFile) {
 			var errorMes = this.getResourceBundle().getText("errorText");
-			var that = this;
 
 			return new Promise((resolve, reject) => {
 				try {
 					// ---- Initialize the model with the JSON file
 					var oModel = new sap.ui.model.xml.XMLModel();
-						oModel.loadData(xmlFile);
-						oModel.attachRequestCompleted(function (oEventModel) {
-							if (oEventModel !== null && oEventModel !== undefined) {
-								var success = oEventModel.getParameter("success");
+					oModel.loadData(xmlFile);
+					oModel.attachRequestCompleted(function (oEventModel) {
+						if (oEventModel !== null && oEventModel !== undefined) {
+							var success = oEventModel.getParameter("success");
 
-								// ---- Convert XML Data to JASON
-								var xmlStr = oModel.getXML();
-								var xmlDOM = new DOMParser().parseFromString(xmlStr, 'text/xml');
-								var mData  = qhelp._parseXmlToJson(xmlDOM);
+							// ---- Convert XML Data to JASON
+							var xmlStr = oModel.getXML();
+							var xmlDOM = new DOMParser().parseFromString(xmlStr, 'text/xml');
+							var mData  = tools._parseXmlToJson(xmlDOM);
 
-								// ---- Create a ComboBox binding
-								if (success) {
-									if (mData.Rowsets.Rowset !== null && mData.Rowsets.Rowset !== undefined) {
-										if (mData.Rowsets.Rowset.Row.length > 0) {
-											var data = mData.Rowsets.Rowset.Row;
+							// ---- Create a ComboBox binding
+							if (success) {
+								if (mData.Rowsets.Rowset !== null && mData.Rowsets.Rowset !== undefined) {
+									if (mData.Rowsets.Rowset.Row.length !== undefined && mData.Rowsets.Rowset.Row.length > 0) {
+										var data = mData.Rowsets.Rowset.Row;
 
-											resolve(data);
-										}
+										resolve(data);
 									} else {
-										qhelp.showMessageError(mData.Rowsets.FatalError, "");
+										var data = mData.Rowsets.Rowset.Row;
+
+										resolve(data);
 									}
+								} else {
+									tools.showMessageError(mData.Rowsets.FatalError, "");
 								}
 							}
-						});
+						}
+					});
 				} catch (error) {
-					qhelp.showMessageError(errorMes);
+					tools.showMessageError(errorMes);
 				}
 			});
 		},
@@ -899,23 +922,21 @@ sap.ui.define([
 		// --------------------------------------------------------------------------------------------------------------------
 
 		onNavBack: function () {
-			if (sap.ushell !== null && sap.ushell !== undefined) {
-				if (sap.ushell.Container !== null && sap.ushell.Container !== undefined) {
-					var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+			// if (sap.ushell !== null && sap.ushell !== undefined) {
+			// 	if (sap.ushell.Container !== null && sap.ushell.Container !== undefined) {
+			// 		var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 
-					oCrossAppNavigator.toExternal({
-						target: {
-							shellHash: "#Shell-home"
-						}
-					});
-				}
-			} else {
-				tools.alertMe("Navigate back or close the browser window!");
-
+			// 		oCrossAppNavigator.toExternal({
+			// 			target: {
+			// 				shellHash: "#Shell-home"
+			// 			}
+			// 		});
+			// 	}
+			// } else {
 				setTimeout(function () {
-					window.close()
-				}, 3000);
-			}
+					window.close();
+				}, 800);
+			// }
 		},
 
 
