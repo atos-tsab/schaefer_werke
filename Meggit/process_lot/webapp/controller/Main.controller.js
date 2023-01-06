@@ -100,7 +100,7 @@ sap.ui.define([
 
 		_onObjectMatched: function (oEvent) {
 			// ---- Get the Uri Parameter for the Carrier Type
-			var ctype = qhelp.getUriParameterCType("CARRIER_TYPE");
+			var ctype = tools.getUriParameterCType("CARRIER_TYPE");
 
 			// ---- Reset all relevant buttons and combo boxes
 			this._resetAll();
@@ -203,6 +203,10 @@ sap.ui.define([
 			this.byId("idComboBoxSFC").setSelectedKey(undefined);
 			this.byId("idComboBoxSFC").setValue("");
 			this.byId("idInputCarrierId").setValue("");
+		},
+
+		onPressAvatar: function (oEvent) {
+			tools.alertMe("Avatar button clicked!");
 		},
 
 		// --------------------------------------------------------------------------------------------------------------------

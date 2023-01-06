@@ -1,0 +1,67 @@
+<core:FragmentDefinition
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:card="sap.f.cards"
+ 	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified" 
+	xmlns:l="sap.ui.layout" 
+    displayBlock="true"
+	xmlns:f="sap.f"
+    xmlns="sap.m">
+
+<!--    <Title id="Title" text="{i18n>CarrierSelection}" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+-->
+	<Panel accessibleRole="Form" height="185px">
+		<content>
+			<f:GridContainer>
+				<f:layout>
+					<f:GridContainerSettings rowSize="4px" columnSize="208px" gap="5px" />
+				</f:layout>
+				<f:layoutXS>
+					<f:GridContainerSettings rowSize="4px" columnSize="208px" gap="5px" />
+				</f:layoutXS>
+				<f:items>
+					<f:Card>
+						<f:layoutData>
+							<f:GridContainerItemLayoutData columns="4" />
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>CarrierSelection}" />
+						</f:header>
+						<f:content>
+							<VBox class="sapUiSmallMargin" justifyContent="Start">
+								<HBox justifyContent="SpaceBetween" wrap="Wrap">
+									<HBox justifyContent="Start" wrap="Wrap">
+										<Label text="{i18n>CarrierTypeColon}" width="90px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<ComboBox 
+											id="idComboBoxCarrierType" 
+											filterSecondaryValues="true" 
+											showSecondaryValues="true" 
+											width="220px" 
+											change="onChangeCarrierType">
+										</ComboBox>
+									</HBox>
+
+									<HBox justifyContent="Start" wrap="Wrap">
+										<Label text="{i18n>CarrierIdColon}" width="90px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+										<Input
+											id="idInputCarrierId"
+											width="220px"
+											type="Text"
+											placeholder="{i18n>CarrierIdPlaceholder}"
+											enabled="true"
+											showValueHelp="true"
+											change="onChangeCarrierId"
+											valueHelpRequest="onCarrierIdValueHelp" />
+										<Button id="idButtonCreateTable" press="onCreateCarrierId" text="{i18n>Create}" tooltip="{i18n>CreateToolTip}" 
+												type="Emphasized" enabled="false" visible="true" class="sapUiMediumMarginBegin sapUiMediumMarginEnd" />
+									</HBox>
+								</HBox>
+							</VBox>
+						</f:content>
+					</f:Card>
+				</f:items>
+			</f:GridContainer>
+		</content>
+	</Panel>
+
+</core:FragmentDefinition>

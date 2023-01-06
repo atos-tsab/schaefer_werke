@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+	xmlns:layout="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	height="100%">
+
+	<HBox wrap="Wrap" class="sapUiResponsiveMargin">
+		<VBox class="sapUiLargeMarginBegin sapUiMediumMarginTop" width="30%" wrap="Wrap">
+			<HBox class="sapUiNoMargin">
+				<Label text="{i18n>SFCColon}" width="90px" class="sapUiTinyMarginTop" />
+				<ComboBox 
+					id="idComboBoxSFC" 
+					filterSecondaryValues="true"
+					showSecondaryValues="true"
+					width="220px"
+					change="onChangeComboBoxSFC">
+				</ComboBox>
+			</HBox>
+
+			<HBox class="sapUiNoMargin">
+				<Label text="" width="90px" class="sapUiTinyMarginTop" />
+				<Label text="" width="158px" class="sapUiTinyMarginTop" />
+				<Button id="idButtonAddSFC" press="onAddSFC" text="{i18n>Add}" tooltip="{i18n>AddSFCToolTip}" 
+						type="Emphasized" enabled="false" visible="true" />
+			</HBox>
+		</VBox>
+	</HBox>
+
+</core:FragmentDefinition>

@@ -37,7 +37,7 @@
 											placeholder="{i18n>ResourcePlaceholder}"
 											filterSecondaryValues="true"
 											showSecondaryValues="true"
-											width="200px"
+											width="220px"
 											selectionChange="onSelectionChangeResource">
 										</ComboBox>
 									</HBox>
@@ -63,7 +63,7 @@
 											id="idComboBoxLayer" 
 											filterSecondaryValues="true"
 											showSecondaryValues="true"
-											width="200px" 
+											width="220px" 
 											selectionChange="onSelectionChangeLayer">
 										</ComboBox>
 									</HBox>

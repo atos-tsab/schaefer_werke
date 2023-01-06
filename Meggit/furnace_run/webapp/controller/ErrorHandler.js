@@ -46,6 +46,7 @@ sap.ui.define([
                 aContexts.forEach(function (oContext) {
                     aMessages.push(oContext.getObject());
                 });
+                
                 oMessageManager.removeMessages(aMessages);
 
                 // ---- Due to batching there can be more than one technical message. However the UX

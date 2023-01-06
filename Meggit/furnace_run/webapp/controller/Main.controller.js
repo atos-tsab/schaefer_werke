@@ -197,6 +197,10 @@ sap.ui.define([
 			this._SignOffSFCByProcessLot(this.JigID, this.Layer, this.Position, this.RunAction);
 		},
 
+		onPressAvatar: function (oEvent) {
+			// tools.alertMe("Avatar button clicked!");
+		},
+
 
 		// --------------------------------------------------------------------------------------------------------------------
 		// ---- Combo Box Event Handlers
@@ -1025,21 +1029,9 @@ sap.ui.define([
 		// --------------------------------------------------------------------------------------------------------------------
 
 		onNavBack: function () {
-			// if (sap.ushell !== null && sap.ushell !== undefined) {
-			// 	if (sap.ushell.Container !== null && sap.ushell.Container !== undefined) {
-			// 		var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
-
-			// 		oCrossAppNavigator.toExternal({
-			// 			target: {
-			// 				shellHash: "#Shell-home"
-			// 			}
-			// 		});
-			// 	}
-			// } else {
-				setTimeout(function () {
-					window.close();
-				}, 800);
-			// }
+			setTimeout(function () {
+				window.close();
+			}, 800);
 		},
 
 

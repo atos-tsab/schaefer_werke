@@ -1,0 +1,62 @@
+<core:FragmentDefinition
+	xmlns:layout="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	height="100%">
+
+	<HBox wrap="Wrap" class="sapUiResponsiveMargin">
+		<VBox wrap="Wrap" class="sapUiLargeMarginBegin sapUiMediumMarginTop" width="100%" visible="true">
+			<VBox class="sapUiNoMargin" width="100%">
+				<Toolbar width="480px">
+					<content>
+						<Title text="{i18n>LotList}" titleStyle="H4" />
+						<ToolbarSpacer />
+						<ToolbarSeparator />
+						<Button id="idButtonCompleteAll" press="onCompleteAll" text="{i18n>CompleteAll}" tooltip="{i18n>CompleteAllToolTip}"
+								type="Emphasized" enabled="false" visible="true" /> 
+						<ToolbarSeparator />
+						<Button id="idButtonRemoveAll" press="onRemoveAll" text="{i18n>RemoveAll}" tooltip="{i18n>RemoveAllToolTip}" 
+								type="Reject" enabled="false" visible="true" />
+					</content>
+				</Toolbar>
+
+				<ScrollContainer id="idScrollContainerSFC" height="575px" width="100%" vertical="true" horizontal="false" class="sapUiSmallMarginBottom">
+					<Table 
+						id="idTableSFCLot"
+						inset="false" 
+						alternateRowColors="true"
+						contextualWidth="auto"
+						mode="None"
+						items="{ path: '/SFCCollection' }"
+						width="480px">
+						<columns>
+							<Column minScreenWidth="Phone" demandPopin="true" width="70px" hAlign="Left">
+								<Text text="{i18n>Position}" />
+							</Column>
+							<Column minScreenWidth="Phone" demandPopin="true" width="240px" hAlign="Left">
+								<Text text="{i18n>SFCNumber}" />
+							</Column>
+							<Column minScreenWidth="Phone" demandPopin="true" width="150px" hAlign="Right">
+								<Text text="{i18n>Selection}" />
+							</Column>
+						</columns>
+						
+						<items>
+							<ColumnListItem vAlign="Middle" type="Active">
+								<cells>
+									<Text text="{Position}" />
+									<Text text="{SFC}" />
+									<Button press="onRemoveSelected($event,${Position},${SFC})" text="" tooltip="{i18n>RemoveSelToolTip}" 
+											type="Reject" icon="sap-icon://sys-minus" iconFirst="true" visible="{VisibleSel}" enabled="{Selection}" />
+								</cells>
+							</ColumnListItem>
+						</items>						
+					</Table>
+				</ScrollContainer>
+				
+			</VBox>
+		</VBox>
+	</HBox>
+
+</core:FragmentDefinition>

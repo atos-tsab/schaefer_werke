@@ -8,7 +8,7 @@
 
 	<l:ResponsiveSplitter id="idSplitterFurnaceRun" defaultPane="idSplitPaneDefault" height="auto" class="sapUiNoContentPadding">
 		<l:PaneContainer>
-			<l:SplitPane requiredParentWidth="400" id="idSplitPaneDefault" class="sapUiNoContentPadding">
+			<l:SplitPane requiredParentWidth="396" id="idSplitPaneDefault" class="sapUiNoContentPadding">
 				<core:Fragment fragmentName="furnacerun.view.parts.UiTable" type="XML" />
 
 		        <l:layoutData> 
