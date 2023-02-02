@@ -44,28 +44,35 @@
 
 									<HBox justifyContent="Start">
 										<Label text="{i18n>FurnaceRunIdColon}" width="115px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
-										<ComboBox 
+										<Select
 											id="idComboBoxFurnRunId" 
 											class="sapUiMediumMarginEnd"
-											placeholder="{i18n>FurnaceRunIdPlaceholder}"
-											filterSecondaryValues="true"
 											showSecondaryValues="true"
+											forceSelection="false"
 											width="220px"
-											selectionChange="onSelectionChangeFurnRunId">
-										</ComboBox>
+											change="onSelectionChangeFurnRunId">										
+										</Select>
 									</HBox>
 								</HBox>
 
 								<HBox justifyContent="Start" wrap="Wrap">
 									<HBox justifyContent="Start">
 										<Label text="{i18n>LayerColon}" width="115px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
-										<ComboBox 
+										<Select
+											id="idComboBoxLayer" 
+											showSecondaryValues="true"
+											forceSelection="false"
+											width="220px"
+											change="onSelectionChangeLayer">										
+										</Select>
+<!-- 										<ComboBox 
 											id="idComboBoxLayer" 
 											filterSecondaryValues="true"
 											showSecondaryValues="true"
 											width="220px" 
 											selectionChange="onSelectionChangeLayer">
 										</ComboBox>
+ -->										
 									</HBox>
 									<HBox class="sapUiLargeMarginBegin" justifyContent="Start">
 									</HBox>
@@ -93,19 +100,19 @@
 
 									<HBox justifyContent="Start" wrap="Wrap">
 										<Label text="{i18n>RunTimeColon}" width="120px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
-										<Input id="idInputRunTime" value="" width="60px" class="sapUiMediumMarginEnd" visible="true" />
+										<Input id="idInputRunTime" value="" width="75px" class="sapUiMediumMarginEnd" visible="true" />
 									</HBox>
 								</HBox>
 
 								<HBox justifyContent="SpaceBetween" wrap="Wrap">
 									<HBox justifyContent="Start" wrap="Wrap">
 										<Label text="{i18n>StartDateTimeColon}" width="120px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
-										<Input id="idInputStartDateTime" value="" width="120px" />
+										<Input id="idInputStartDateTime" value="" width="200px" />
 									</HBox>
 
 									<HBox justifyContent="Start" wrap="Wrap">
 										<Label text="{i18n>TimeRemainingColon}" width="120px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
-										<Input id="idInputRemainTime" value="" width="60px" class="sapUiMediumMarginEnd" />
+										<Input id="idInputRemainTime" value="" width="75px" class="sapUiMediumMarginEnd" />
 									</HBox>
 								</HBox>
 							</VBox>

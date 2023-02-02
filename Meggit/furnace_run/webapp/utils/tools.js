@@ -88,7 +88,7 @@ sap.ui.define([
                 });
 
                 oComboBox.setSelectedKey(undefined);
-            }
+             }
         },
 
         onSetComboBoxDataWithSelection: function (oModel, component, mData, collection, key, txt, atxt, asorter, param, entry, showAddText) {
@@ -99,8 +99,8 @@ sap.ui.define([
 
             // ---- Create a ComboBox binding
             var oItemTemplate = new sap.ui.core.ListItem();
-            oItemTemplate.bindProperty("key", key);
-            oItemTemplate.bindProperty("text", txt);
+                oItemTemplate.bindProperty("key", key);
+                oItemTemplate.bindProperty("text", txt);
 
             if (showAddText) {
                 oItemTemplate.bindProperty("additionalText", atxt);
@@ -124,10 +124,54 @@ sap.ui.define([
                         var val = mData.results[i];
 
                         if (val[param] === entry) {
-                            oComboBox.setSelectedKey(i);
-                            oComboBox.setSelectedItem(val[param]);
+                            oComboBox.setSelectedKey(val[param]);
                             oComboBox.setValue(val[param]);
+                        } else {
+
                         }
+                    }
+                } else {
+                    oComboBox.setSelectedKey(undefined);
+                }
+            }
+        },
+
+        onSetSelectBoxDataWithSelection: function (oModel, component, mData, collection, key, txt, atxt, asorter, param, entry, showAddText) {
+            // ---- Set data to the Models
+            oModel.setData({
+                [collection]: mData.results
+            });
+
+            // ---- Create a ComboBox binding
+            var oItemTemplate = new sap.ui.core.ListItem();
+                oItemTemplate.bindProperty("key", key);
+                oItemTemplate.bindProperty("text", txt);
+                oItemTemplate.bindProperty("enabled", "enabled");
+
+            if (showAddText) {
+                oItemTemplate.bindProperty("additionalText", atxt);
+            }
+
+            var oComboBox = component;
+
+            if (oComboBox !== null && oComboBox !== undefined) {
+                oComboBox.setModel(oModel);
+
+                oComboBox.bindItems({
+                    path: "/" + collection,
+                    template: oItemTemplate,
+                    sorter: { path: asorter },
+                    templateShareable: false
+                });
+
+                // ---- Set the selection for the ComboBox DepartmentName
+                if (mData.results.length > 0) {
+                    for (var i = 0; i < mData.results.length; i++) {
+                        var val = mData.results[i];
+
+                        if (val[param] === entry) {
+                            oComboBox.setSelectedKey(val[param]);
+                         }
                     }
                 } else {
                     oComboBox.setSelectedKey(undefined);
@@ -716,6 +760,22 @@ sap.ui.define([
         // --------------------------------------------------------------------------------------------------------------------
         // ---- Basic Functions
         // --------------------------------------------------------------------------------------------------------------------
+
+        parseSecoundsToSpecialFormat: function (seconds, seperatorTime) {
+            var sec_num = parseInt(seconds, 10);
+
+            var days    = Math.floor(sec_num / 86400);
+            var hours   = Math.floor((sec_num - (days * 86400)) / 3600);
+            var minutes = Math.floor((sec_num - (days * 86400) - (hours * 3600)) / 60);
+
+            if (days    < 10) {days    = "0"+days;}
+            if (hours   < 10) {hours   = "0"+hours;}
+            if (minutes < 10) {minutes = "0"+minutes;}
+
+            var timeFormated = days + seperatorTime + hours + seperatorTime + minutes;
+
+            return timeFormated;
+        },
 
 		autoResizeColumns: function (oTable) {
 			var tcols = oTable.getColumns();

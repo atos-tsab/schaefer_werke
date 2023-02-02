@@ -18,7 +18,7 @@
 			<l:SplitPane id="idSplitPanePic" requiredParentWidth="600" class="sapUiNoContentPadding">
 				<Panel headerText="{i18n>ImageTitle}" backgroundDesign="Solid" width="500px">
 					<HBox fitContainer="true" alignContent="Center" alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBegin sapUiMediumMarginTop sapUiSmallMarginBottom">
-						<Image id="idImagePod" error=".onImageError" src="{SRC}" height="480px" width="auto" visible="true" />
+						<Image id="idImagePod" error=".onImageError" src="{ImageCollection>ImgSrc}" height="480px" width="auto" visible="true" />
 					</HBox>
 				</Panel> 
 
@@ -28,9 +28,9 @@
 			</l:SplitPane>
 			<l:SplitPane requiredParentWidth="800" class="sapUiNoContentPadding">
 				<VBox>
-					<Button id="idButtonWI"      press="onPressWI"      text="{i18n>WI}"      type="Emphasized" width="100px" class="sapUiMediumMarginBegin sapUiLargeMarginTop" />
-					<Button id="idButtonComment" press="onPressComment" text="{i18n>Comment}" type="Emphasized" width="100px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
-					<Button id="idButtonLogNC"   press="onPressLogNC"   text="{i18n>LogNC}"   type="Emphasized" width="100px" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+					<Button id="idButtonWI"      press="onPressWI"      text="{i18n>WI}"      type="Emphasized" width="100px" enabled="false" class="sapUiMediumMarginBegin sapUiLargeMarginTop" />
+					<Button id="idButtonComment" press="onPressComment" text="{i18n>Comment}" type="Emphasized" width="100px" enabled="false" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
+					<Button id="idButtonLogNC"   press="onPressLogNC"   text="{i18n>LogNC}"   type="Emphasized" width="100px" enabled="false" class="sapUiMediumMarginBegin sapUiTinyMarginTop" />
 				</VBox>
 
 		        <l:layoutData> 

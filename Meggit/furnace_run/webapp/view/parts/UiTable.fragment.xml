@@ -13,11 +13,11 @@
 		<ui:Table 
 			id="idTableWorkList" 
 			title="{i18n>PodWorkList}" 
-			class="sapUiSmallMarginBegin sapUiSmallMarginEnd" 
+			class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginBottom" 
 			selectionMode="Single" 
 			rowSelectionChange="onTableSelectionChange" 
 			selectionBehavior="Row" 
-			visibleRowCount="16">
+			visibleRowCount="11">
 			<ui:columns>
 				<ui:Column width="10%" id="multiheader" sortProperty="Layer">
 					<ui:multiLabels>
@@ -37,7 +37,7 @@
 				</ui:Column>
 				<ui:Column width="30%" sortProperty="Module">
 					<ui:multiLabels>
-						<Label text="{i18n>JigType}" textAlign="Center" width="100%" />
+						<Label text="{i18n>StackId}" textAlign="Center" width="100%" />
 					</ui:multiLabels>
 					<ui:template>
 						<Text text="{Module}" />
@@ -45,10 +45,10 @@
 				</ui:Column>
 				<ui:Column width="25%" sortProperty="LoadedModuleID">
 					<ui:multiLabels>
-						<Label text="{i18n>JigLoaded}" textAlign="Center" width="100%" />
+						<Label text="{i18n>StackLoaded}" textAlign="Center" width="100%" />
 					</ui:multiLabels>
 					<ui:template>
-						<Text text="{LoadedModuleID}" />
+						<ObjectStatus text="{LoadedModuleID}" state="{LoadState}" inverted="{LoadInverted}" />
 					</ui:template>
 				</ui:Column>
 				<ui:Column width="30%">
@@ -61,8 +61,8 @@
 								scanSuccess="onScanSuccess" scanFail="onScanError" inputLiveUpdate="onScanLiveupdate" 
 								dialogTitle="Barcode Scanner Button Sample" />
 	-->
-							<Button press="onLoadJig($event,${Layer},${Position})" text="{i18n>Load}"   type="Emphasized" width="70px" enabled="{LoadEnabled}"   visible="{LoadShow}"   class="sapUiSmallMarginBegin" />
-							<Button press="onUnLoadJig($event,${Layer},${Position},${LoadedModuleID})"  text="{i18n>UnLoad}" type="Emphasized" width="70px" enabled="{UnloadEnabled}" visible="{UnloadShow}" class="sapUiTinyMarginBegin" />
+							<Button press="onLoadJig($event,${Layer},${Position},${Module})" text="{i18n>Load}" type="Emphasized" width="70px" enabled="{LoadEnabled}" visible="{LoadShow}" class="sapUiTinyMarginBegin" />
+							<Button press="onUnLoadJig($event,${Layer},${Position},${LoadedModuleID})" text="{i18n>UnLoad}" type="Emphasized" width="70px" enabled="{UnloadEnabled}" visible="{UnloadShow}" class="sapUiTinyMarginBegin" />
 						</HBox>
 					</ui:template>
 				</ui:Column>

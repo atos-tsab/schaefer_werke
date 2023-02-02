@@ -28,6 +28,16 @@ function (NumberFormat) {
 
 	return {
 
+		changeLoadCheck: function (check) {
+			var styleClass = "atosTextDefault";
+
+			if (check > 0) {
+				styleClass = "atosLoadCheck";
+			}
+
+			return styleClass;
+		},
+
 		switchFormatter: function (aValue) {
 			var status = false;
 

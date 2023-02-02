@@ -1,0 +1,47 @@
+<core:FragmentDefinition 
+	xmlns:core="sap.ui.core" 
+	xmlns:ui="sap.ui.table" 
+    displayBlock="true"
+	xmlns="sap.m">
+
+    <Dialog id="idCommentDialog" resizable="false" contentWidth="800px" contentHeight="550px">
+        <content>
+            <VBox class="sapUiSmallMargin" justifyContent="Start">
+                <HBox justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox justifyContent="Start">
+                        <Label text="{i18n>ProcessLot}" width="100px" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+                        <ComboBox 
+                            id="idComboBoxJigStackIds" 
+                             filterSecondaryValues="false"
+                            showSecondaryValues="false"
+                            width="635px"
+                            selectionChange="onSelectionChangeComments">
+                        </ComboBox>
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <VBox class="sapUiSmallMargin" justifyContent="Start">
+                <HBox justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox justifyContent="Start">
+                        <core:Fragment fragmentName="furnacerun.view.parts.UiTableComments" type="XML" />
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <VBox class="sapUiSmallMargin" justifyContent="Start">
+                <HBox justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox justifyContent="Start">
+                        <Label text="{i18n>CommentColon}" width="100px" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+			            <TextArea id="idTextAreaTextArea" value="" rows="2" width="635px" growing="true" />
+                    </HBox>
+                </HBox>
+            </VBox>
+        </content>
+
+        <buttons>
+            <Button text="{i18n>Add}"    press="onAddComment" />
+            <Button text="{i18n>Cancel}" press="onCloseCommentDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

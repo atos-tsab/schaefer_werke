@@ -11,7 +11,7 @@
         <App id="app">
             <tnt:ToolPage id="idToolPage">
                 <tnt:header>
-                    <f:ShellBar title="{i18n>title}" secondTitle="{i18n>SiteColon}" homeIcon="../images/Logo.jpg" showSearch="false" showCopilot="false" 
+                    <f:ShellBar title="{i18n>title}" secondTitle="{i18n>SiteColon} {viewModel>/Site}" homeIcon="../images/Logo.jpg" showSearch="false" showCopilot="false" 
                                 showMenuButton="false" showNavButton="false" showNotifications="false" showProductSwitcher="false">
                         <f:profile>
                             <f:Avatar press="onPressAvatar" initials="{headingModel>/User}" />

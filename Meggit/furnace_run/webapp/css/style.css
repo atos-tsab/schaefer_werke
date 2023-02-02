@@ -7,3 +7,17 @@
 #__spacer1 {
     width: auto !important;   
 }
+
+.atosStackError {
+    color: red !important;
+}
+
+.atosTextDefault {
+    color: #32363A !important;
+}
+
+
+.atosLoadCheck {
+    color: red !important;
+    font-weight: bold !important;
+}

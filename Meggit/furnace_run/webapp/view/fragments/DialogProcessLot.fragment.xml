@@ -4,19 +4,41 @@
     displayBlock="true"
 	xmlns="sap.m">
 
-    <Dialog id="idProcessLotDialog" resizable="true" contentWidth="370px" contentHeight="100px">
+    <Dialog id="idProcessLotDialog" resizable="false" contentWidth="470px" contentHeight="100px">
         <content>
-			<VBox class="sapUiSmallMargin" justifyContent="Start">
-				<HBox justifyContent="Start">
-					<Label text="{i18n>ProcessLot}" width="100px" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
-					<Input id="idInputProcessLot" change="onProcessLotPress" value="" width="200px" class="sapUiSmallMarginEnd" />
-				</HBox>
-			</VBox>
+            <VBox class="sapUiSmallMargin" justifyContent="Start">
+                <HBox justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox justifyContent="Start">
+                        <Label text="{i18n>ProcessLot}" width="100px" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+					    <Input id="idInputProcessLot" change="onProcessLotPress" value="" width="300px" class="sapUiSmallMarginEnd" />
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <VBox id="idVBoxStackIdError" class="sapUiSmallMargin" justifyContent="Start" visible="false">
+                <HBox justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox justifyContent="Start">
+                        <Label id="idLabelErrorStackId" text="{i18n>ErrorStackId}" width="400px" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+                   </HBox>
+                </HBox>
+                <HBox justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox justifyContent="Start">
+                        <Label id="idLabelErrorQuestion" text="{i18n>ErrorQuestion}" width="400px" class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" />
+                   </HBox>
+                </HBox>
+                <HBox justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox justifyContent="Start">
+                        <Label text="{i18n>CommentColon}" width="100px" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
+			            <TextArea id="idTextAreaComment" value="" rows="3" width="300px" growing="true" />
+                    </HBox>
+                </HBox>
+            </VBox>
         </content>
 
         <buttons>
-            <Button text="{i18n>Save}"   type="Emphasized" press="onSaveLoadJigDialog" />
-            <Button text="{i18n>Cancel}" type="Default"    press="onCloseLoadJigDialog" />
+            <Button id="idButtonOverrideStackId" text="{i18n>Override}" type="Emphasized" press="onOverrideJigDialog" visible="false" />
+            <Button id="idButtonSaveStackId"     text="{i18n>Save}"     type="Emphasized" press="onSaveLoadJigDialog" visible="true" />
+            <Button text="{i18n>Cancel}"         type="Default" press="onCloseLoadJigDialog" />
         </buttons>
     </Dialog>
 </core:FragmentDefinition>
