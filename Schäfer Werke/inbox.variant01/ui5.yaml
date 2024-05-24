@@ -1,0 +1,34 @@
+specVersion: "3.0"
+metadata:
+  name: inbox.variant01
+type: application
+resources:
+  configuration:
+    propertiesFileSourceEncoding: UTF-8
+customConfiguration:
+  adp:
+    safeMode: false
+server:
+  customMiddleware:
+    - name: fiori-tools-preview
+      afterMiddleware: compression
+      configuration:
+        adp:
+          target: 
+            url: https://atosapp01s18.koios.eviden.com:44301
+            client: '600'
+          ignoreCertErrors: false
+    - name: fiori-tools-proxy
+      afterMiddleware: fiori-tools-preview
+      configuration:
+        ignoreCertErrors: false
+        ui5:
+          version: 1.108.32
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+        backend: 
+          - url: https://atosapp01s18.koios.eviden.com:44301
+            client: '600'
+            path: /sap
