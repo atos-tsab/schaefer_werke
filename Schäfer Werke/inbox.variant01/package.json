@@ -1,13 +1,13 @@
 {
 	"name": "inbox.variant01",
-	"version": "0.0.1", 
+	"version": "0.0.1",
 	"keywords": [
 		"ui5",
 		"sapui5",
 		"adaptation-project"
 	],
 	"devDependencies": {
-		"@sap/ux-ui5-tooling": "^1.11.4",
+		"@sap/ux-ui5-tooling": "^1.13.5",
 		"@ui5/cli": "^3.6.0"
 	},
 	"scripts": {

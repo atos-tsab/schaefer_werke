@@ -2,8 +2,9 @@ sap.ui.define([
     "sap/ui/core/mvc/ControllerExtension",
     "sap/ui/core/mvc/OverrideExecution",
     "sap/ui/model/resource/ResourceModel",
+	"sap/ui/model/json/JSONModel",
     "sap/ui/core/mvc/Controller"
-], function (ControllerExtension, OverrideExecution, ResourceModel, Controller) {
+], function (ControllerExtension, OverrideExecution, ResourceModel, JSONModel, Controller) {
 
     'use strict';
 
@@ -28,9 +29,6 @@ sap.ui.define([
         		// 	public: true /*default*/ ,
         		// 	final: false /*default*/ ,
         		// 	overrideExecution: OverrideExecution.After
-        		// },
-        		// couldBePrivate: {
-        		// 	public: false
         		// },
         		_addResourceBundle: {
         			public: false
@@ -59,18 +57,17 @@ sap.ui.define([
         },
 
         _createTabContent: function () {
-            var sToolTip      = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.iconTabToolTip");
-            var sTitle        = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.titlePDFViewer");
-            var oIconTabBar   = this.getView().byId("tabBar");
+            var sToolTip    = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.iconTabToolTip");
+            var sTitle      = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.titlePDFViewer");
+            var oIconTabBar = this.getView().byId("tabBar");
 
             var oFlexItemData = new sap.m.FlexItemData({ growFactor: 1 });
 
             var oLayoutData = new sap.ui.core.LayoutData({});
                 oLayoutData.setLayoutData(oFlexItemData);
 
-            var oNewPDFViewer = new sap.m.PDFViewer("idPDFViewer", { source: "./sample.pdf", title: sTitle, height: "600px", showDownloadButton: false });
-                // oNewPDFViewer.setLayoutData(oLayoutData);
-                oNewPDFViewer.setTitle("Bla Bla");
+            var oNewPDFViewer = new sap.m.PDFViewer("idPDFViewer", { source: "{PDFModel>/Source}", title: sTitle, height: "{PDFModel>/Height}", width: "100%", showDownloadButton: "{PDFModel>/showBTN}" });
+                oNewPDFViewer.setLayoutData(oLayoutData);
 
             var oNewFlexBox = new sap.m.FlexBox({ direction: "Column", renderType: "Div" });
                 oNewFlexBox.addStyleClass("sapUiSmallMargin");
@@ -80,13 +77,13 @@ sap.ui.define([
                 oNewScrollContainer.addContent(oNewFlexBox);
 
             // ---- Create a new IconTabFilter and add content to the new tab
-            var oNewTab = new sap.m.IconTabFilter("idPDFTabFilter", { tooltip: sToolTip, key: "pdfTab", count: "0", text: "", icon: "sap-icon://pdf-attachment"});
+            var oNewTab = new sap.m.IconTabFilter("idPDFTabFilter", { tooltip: sToolTip, key: "pdfTab", count: "{PDFModel>/Count}", text: "", icon: "sap-icon://pdf-attachment"});
                 oNewTab.addContent(oNewScrollContainer);
 
             // ---- Add the new tab to the IconTabBar
             oIconTabBar.addItem(oNewTab);
 
-            this._alertMe("Additional tab created!");
+            this._alertMe("1. Additional tab created!");
         },
 
         _alertMe: function (msg) {
@@ -137,19 +134,32 @@ sap.ui.define([
             onInit: function() {
                 this._addResourceBundle();
                 this._createTabContent();
+
+                // ---- Set Jason Models.
+                var oModelData = {
+                    "Source":  "",
+                    "Count":   "0",
+                    "Height":  "600px",
+                    "showBTN": false
+                };
+
+                this.oPDFModel = new JSONModel(oModelData);
+
+                this.getView().setModel(this.oPDFModel, "PDFModel");
         	},
 
             extHookGetEntitySetsToExpand: function (oDetailData) {
-                var sPDFSource = sap.ui.require.toUrl("customer/inbox/variant01/changes/coding/sample.pdf");
-                var oPDFViewer = this.getView().byId("idPDFViewer");
+                var sPDFSource  = sap.ui.require.toUrl("customer/inbox/variant01/changes/coding/sample.pdf");
+                var oPDFViewer  = this.getView().byId("idPDFViewer");
+                var oIconTabBar = this.getView().byId("tabBar");
    
-                if (oPDFViewer !== null && oPDFViewer !== undefined) {
-                    // oPDFViewer.setSource();
-                    oPDFViewer.setTitle("Bla Bla");
+                if (oIconTabBar !== null && oIconTabBar !== undefined) {
+                    this.oPDFModel.setProperty("/Source", "");
+                    this.oPDFModel.setProperty("/Count", "0");
+
                 }
 
-
-                this._alertMe("In extHookGetEntitySetsToExpand function");
+                this._alertMe("2. In extHookGetEntitySetsToExpand function");
             },
 
 

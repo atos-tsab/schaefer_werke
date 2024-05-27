@@ -17,11 +17,11 @@ server:
           target: 
             url: https://atosapp01s18.koios.eviden.com:44301
             client: '600'
-          ignoreCertErrors: false
+          ignoreCertErrors: true
     - name: fiori-tools-proxy
       afterMiddleware: fiori-tools-preview
       configuration:
-        ignoreCertErrors: false
+        ignoreCertErrors: true
         ui5:
           version: 1.108.32
           path:
