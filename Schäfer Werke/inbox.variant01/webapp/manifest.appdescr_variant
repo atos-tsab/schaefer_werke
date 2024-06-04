@@ -29,6 +29,26 @@
       "content": {
         "minUI5Version": "1.108.18"
       }
+    },
+    {
+        "changeType": "appdescr_ui5_addNewModel",
+        "content": {
+            "dataSource": {
+                "customer.ZDOWNLOADPDF": {
+                    "uri": "/sap/opu/odata/sap/ZP2P_DOWNLOADPOPDF_SRV/",
+                    "type": "OData",
+                    "settings": {
+                        "odataVersion": "2.0"
+                    }
+                }
+            },
+            "model": {
+                "customer.downloadPDF": {
+                    "dataSource": "customer.ZDOWNLOADPDF",
+                    "settings": {}
+                }
+            }
+        }
     }
   ]
 }

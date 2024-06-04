@@ -10,6 +10,7 @@ sap.ui.define([
 
  	// ---- The app namespace is to be define here!
     var _sAppPath = "customer.inbox.variant01.";
+	var _sAppModulePath = "customer/inbox/variant01/";
 
     return ControllerExtension.extend("customer.inbox.variant01.additionalTabController", {
 
@@ -17,7 +18,8 @@ sap.ui.define([
         	// ---- Extension can declare the public methods
         	// ---- In general methods that start with "_" are private
         	methods: {
-        		// publicMethod: {
+
+                // publicMethod: {
         		// 	public: true /*default*/ ,
         		// 	final: false /*default*/ ,
         		// 	overrideExecution: OverrideExecution.Instead /*default*/
@@ -30,16 +32,32 @@ sap.ui.define([
         		// 	final: false /*default*/ ,
         		// 	overrideExecution: OverrideExecution.After
         		// },
-        		_addResourceBundle: {
+
+                _addResourceBundle: {
+        			public: false
+        		},
+        		_initModels: {
         			public: false
         		},
         		_createTabContent: {
+        			public: false
+        		},
+        		_initLocalVars: {
         			public: false
         		},
         		_alertMe: {
         			public: false
         		},
         		_showMessageError: {
+        			public: false
+        		},
+        		_decodeBase64String: {
+        			public: false
+        		},
+        		_getBindingData: {
+        			public: false
+        		},                
+        		_loadPDFData: {
         			public: false
         		}
         	}
@@ -56,34 +74,64 @@ sap.ui.define([
             this.oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
         },
 
+        _initModels: function () {
+            let sTitle = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.title1PDFViewer");
+
+            // ---- Set PDF Jason Model.
+            let oModelData = {
+                "Source":  "",
+                "Title":   "",
+                "Count":   "",
+                "Height":  "600px",
+                "showBTN": false
+            };
+
+            let oPDFModel = new JSONModel(oModelData);
+
+            this.getView().setModel(oPDFModel, "PDFModel");
+        },
+
         _createTabContent: function () {
-            var sToolTip    = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.iconTabToolTip");
-            var sTitle      = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.titlePDFViewer");
-            var oIconTabBar = this.getView().byId("tabBar");
+            let sToolTip    = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.iconTabToolTip");
+            let oIconTabBar = this.getView().byId("tabBar");
 
-            var oFlexItemData = new sap.m.FlexItemData({ growFactor: 1 });
+            let oFlexItemData = new sap.m.FlexItemData({ growFactor: 1 });
 
-            var oLayoutData = new sap.ui.core.LayoutData({});
+            let oLayoutData = new sap.ui.core.LayoutData({});
                 oLayoutData.setLayoutData(oFlexItemData);
 
-            var oNewPDFViewer = new sap.m.PDFViewer("idPDFViewer", { source: "{PDFModel>/Source}", title: sTitle, height: "{PDFModel>/Height}", width: "100%", showDownloadButton: "{PDFModel>/showBTN}" });
+            let oNewPDFViewer = new sap.m.PDFViewer("idPDFViewer", { source: "{PDFModel>/Source}", title: "{PDFModel>/Title}", height: "{PDFModel>/Height}", width: "100%", showDownloadButton: "{PDFModel>/showBTN}", isTrustedSource: true });
                 oNewPDFViewer.setLayoutData(oLayoutData);
 
-            var oNewFlexBox = new sap.m.FlexBox({ direction: "Column", renderType: "Div" });
+            this._PDFViewer = oNewPDFViewer;
+
+            let oNewFlexBox = new sap.m.FlexBox({ direction: "Column", renderType: "Div" });
                 oNewFlexBox.addStyleClass("sapUiSmallMargin");
                 oNewFlexBox.addItem(oNewPDFViewer);
 
-            var oNewScrollContainer = new sap.m.ScrollContainer({ height: "100%", width: "100%", horizontal: true, vertical: true });
+            let oNewScrollContainer = new sap.m.ScrollContainer({ height: "100%", width: "100%", horizontal: true, vertical: true });
                 oNewScrollContainer.addContent(oNewFlexBox);
 
             // ---- Create a new IconTabFilter and add content to the new tab
-            var oNewTab = new sap.m.IconTabFilter("idPDFTabFilter", { tooltip: sToolTip, key: "pdfTab", count: "{PDFModel>/Count}", text: "", icon: "sap-icon://pdf-attachment"});
+            let oNewTab = new sap.m.IconTabFilter("idPDFTabFilter", { tooltip: sToolTip, key: "pdfTab", count: "{PDFModel>/Count}", text: "", icon: "sap-icon://pdf-attachment"});
                 oNewTab.addContent(oNewScrollContainer);
 
             // ---- Add the new tab to the IconTabBar
             oIconTabBar.addItem(oNewTab);
+        },
 
-            this._alertMe("1. Additional tab created!");
+        _initLocalVars: function () {
+            // ---- Set a Model for the PDF Viewer
+            let oModelPDF = this.getView().getModel("PDFModel");
+
+            if (oModelPDF !== null && oModelPDF !== undefined) {
+                if (this._PDFViewer !== null && this._PDFViewer !== undefined) {
+                    this._PDFViewer.setModel(oModelPDF);
+                }    
+            }
+
+            // ---- In order to fetch the PDF in response as blob
+            jQuery.sap.addUrlWhitelist("blob");
         },
 
         _alertMe: function (msg) {
@@ -105,6 +153,104 @@ sap.ui.define([
                 }.bind(this)
             });
         },
+
+        _decodeBase64String: function (sBase64) {
+            let that = this;
+
+			return new Promise((resolve, reject) => {
+				try {
+                    // ---- Decode the base64 string
+                    let base64EncodedPDF  = sBase64;
+                    let decodedPdfContent = atob(base64EncodedPDF);
+
+                    let byteArray = new Uint8Array(decodedPdfContent.length);
+
+                    for (let i = 0; i < decodedPdfContent.length; i++) {
+                        byteArray[i] = decodedPdfContent.charCodeAt(i);
+                    }
+
+                    let blob    = new Blob([byteArray.buffer], { type: 'application/pdf' });
+                    let sPDFUrl = window.URL.createObjectURL(blob);
+
+                    resolve(sPDFUrl);
+
+				} catch (oError) {
+                    reject(oError.message);
+				}
+			});
+        },
+    
+        _getBindingData: async function () {
+            // ---- Get the Binding data
+            let oBinding = this.getView().getBindingContext();
+            let sPath    = oBinding.getPath();
+            let oModel   = oBinding.getModel();
+            let that = this;
+
+            this.oBindingArray = {};
+            this.oBindingArray.SAP__Origin = oBinding.getProperty('SAP__Origin');
+            this.oBindingArray.InstanceID  = oBinding.getProperty('InstanceID');
+            this.oBindingArray.orderId     = "";
+
+            // ---- Check for CustomAttributeData collection
+            oModel.read(sPath + "/CustomAttributeData", {
+                error: function(oError, resp) {
+                    that._showMessageError(oError.message);
+                },
+                success: function(oData, response) {
+                    if (oData.results !== null && oData.results !== undefined && oData.results.length > 0) {
+                        for (let i = 0; i < oData.results.length; i++) {
+                            let item = oData.results[i];
+                            
+                            if (item.Name === "Invoice") {
+                                that.oBindingArray.orderId = item.Value;
+
+                                break;
+                            }
+                        }
+
+                        if (that.oBindingArray.orderId !== "") {
+                            that._loadPDFData(that.oBindingArray.orderId);
+                        }
+                    }
+                }
+            });          
+        },
+
+        _loadPDFData: function (orderId) {
+            let sTitle2   = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.title2PDFViewer", orderId);
+            let oModelPDF = this.getView().getModel("PDFModel");
+            let that = this;
+
+            // ---- ToDo: Remove hardcoded order ID 
+            orderId = "4500000303";
+            orderId = "4500000001";
+
+            // ---- Read the PDF Data from the backend
+            let sPath = "/POPDFSet('" + orderId + "')";
+
+            let oModel = this.getView().getModel("customer.downloadPDF");
+                oModel.read(sPath, {
+                    error: function(oError, resp) {
+                        that._showMessageError(oError.message);
+                    },
+                    success: function(oData, response) {
+                        if (oData !== null && oData !== undefined && response.statusCode === "200") {
+                            if (oData.PDFContent !== "") {
+                                that._decodeBase64String(oData.PDFContent).then((sPDFSource) => {
+                                    // ---- Bind the PDF Content data to the PDF Viewer
+                                    oModelPDF.setProperty("/Source", sPDFSource);
+                                    oModelPDF.setProperty("/Count", "1");
+                                    oModelPDF.setProperty("/Title", sTitle2);
+                                }).catch((oErrorProm) => {
+                                    that._showMessageError(oErrorProm.message);
+                                })
+                            }
+                        }
+                    }
+                });          
+        },
+
 
         // // adding a private method, only accessible from this controller extension
         // _privateMethod: function() {},
@@ -133,62 +279,27 @@ sap.ui.define([
 
             onInit: function() {
                 this._addResourceBundle();
+                this._initModels();
                 this._createTabContent();
-
-                // ---- Set Jason Models.
-                var oModelData = {
-                    "Source":  "",
-                    "Count":   "0",
-                    "Height":  "600px",
-                    "showBTN": false
-                };
-
-                this.oPDFModel = new JSONModel(oModelData);
-
-                this.getView().setModel(this.oPDFModel, "PDFModel");
+                this._initLocalVars();
         	},
 
             extHookGetEntitySetsToExpand: function (oDetailData) {
-                var sPDFSource  = sap.ui.require.toUrl("customer/inbox/variant01/changes/coding/sample.pdf");
-                var oPDFViewer  = this.getView().byId("idPDFViewer");
-                var oIconTabBar = this.getView().byId("tabBar");
-   
+                let sTitle1   = this.oResourceBundle.getText("customer.inbox.variant01_sap.app.title1PDFViewer");
+                let oModelPDF = this.getView().getModel("PDFModel");
+                    oModelPDF.setProperty("/Source", "");
+                    oModelPDF.setProperty("/Count", "0");
+                    oModelPDF.setProperty("/Title", sTitle1);
+    
+                let oIconTabBar = this.getView().byId("tabBar");
+
+                // ---- Place your hook implementation code here  d.CustomAttributeData.results[0].Value
                 if (oIconTabBar !== null && oIconTabBar !== undefined) {
-                    this.oPDFModel.setProperty("/Source", "");
-                    this.oPDFModel.setProperty("/Count", "0");
-
+                    if (this._PDFViewer !== null && this._PDFViewer !== undefined) {
+                        this._getBindingData();
+                    }
                 }
-
-                this._alertMe("2. In extHookGetEntitySetsToExpand function");
             },
-
-
-        //     <IconTabFilter 
-        //     id="PDFLinkTabFilter" 
-        //     icon="sap-icon://pdf-attachment" 
-        //     tooltip="{i18n>relatedObjects.tooltip}"
-        //     count="1"
-        //     visible="true"
-        //     key="PDFLINK">
-        //     <core:ExtensionPoint xmlns:core="sap.ui.core" name="CustomerExtensionForPDFTabContent">
-        //         <ScrollContainer
-        //             height="100%"
-        //             width="100%"
-        //             horizontal="true"
-        //             vertical="true">
-        //             <FlexBox direction="Column" renderType="Div" class="sapUiSmallMargin">
-        //                 <PDFViewer source="{PDFModel>/Source}" title="{PDFModel/Title}" height="{PDFModel>/Height}">
-        //                     <layoutData>
-        //                         <FlexItemData growFactor="1" />
-        //                     </layoutData>
-        //                 </PDFViewer>
-        //             </FlexBox>
-        //         </ScrollContainer>
-        //     </core:ExtensionPoint>
-        // </IconTabFilter>
-
-
-
 
 
             /**
@@ -212,11 +323,11 @@ sap.ui.define([
         	 * @memberOf {{controllerExtPath}}
         	 */
         	onExit: function() {
-        	},
+        	}
 
         	// ---- Override public method of the base controller
-        	basePublicMethod: function() {
-        	}
+        	// basePublicMethod: function() {
+        	// }
         }
 
     });
